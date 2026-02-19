@@ -205,12 +205,19 @@
     /* ===== PROJECTS ===== */
     .projects { background: var(--cream); }
 
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
     .project-card {
       background: var(--card-bg);
       border: 1.5px solid var(--card-border);
       border-radius: 16px;
       overflow: hidden;
-      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
@@ -239,6 +246,26 @@
 
     .project-image-launcher {
       background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+    }
+
+    .project-image-gab {
+      background: linear-gradient(135deg, #4a0e8f 0%, #7c3aed 50%, #a78bfa 100%);
+    }
+
+    .project-image-ilysia {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4f46e5 100%);
+    }
+
+    .project-image-fatfoods {
+      background: linear-gradient(135deg, #c2410c 0%, #ea580c 50%, #fb923c 100%);
+    }
+
+    .project-image-lair {
+      background: linear-gradient(135deg, #064e3b 0%, #047857 50%, #34d399 100%);
+    }
+
+    .project-image-spirits {
+      background: linear-gradient(135deg, #1c1917 0%, #44403c 50%, #78716c 100%);
     }
 
     .project-image-name {
@@ -302,7 +329,12 @@
       50% { opacity: 0.4; }
     }
 
-    .project-content { padding: 32px; }
+    .project-content {
+      padding: 32px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
 
     .project-content h3 {
       font-size: 24px;
@@ -333,7 +365,7 @@
       border-radius: 100px;
     }
 
-    .project-links { display: flex; gap: 20px; }
+    .project-links { display: flex; flex-wrap: wrap; gap: 20px; margin-top: auto; }
 
     .project-link {
       display: flex;
@@ -358,12 +390,27 @@
     .project-link-secondary { color: var(--text-light); }
     .project-link-secondary svg { stroke: var(--text-light); }
 
+    .projects-divider {
+      grid-column: 1 / -1;
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 10px;
+      padding-top: 48px;
+      border-top: 1.5px solid var(--card-border);
+    }
+
+    .projects-divider h3 {
+      font-size: clamp(20px, 2.5vw, 26px);
+      font-weight: 600;
+      color: var(--text-light);
+    }
+
     /* ===== SKILLS ===== */
     .skills { background: var(--section-alt); }
 
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
 
@@ -535,13 +582,16 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 900px) {
-      .skills-grid { grid-template-columns: repeat(2, 1fr); }
       .contact-wrapper { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 600px) {
       section { padding: 72px 20px; }
-      .skills-grid { grid-template-columns: 1fr; }
       .project-image { height: 200px; }
       .project-content { padding: 24px; }
       .hero { padding: 60px 20px; }
@@ -580,6 +630,8 @@
         <h2>Featured Projects</h2>
         <p>Full-stack SaaS products built and shipped from concept to production</p>
       </div>
+
+      <div class="projects-grid">
 
       <!-- HIREWALL -->
       <div class="project-card fade-up">
@@ -678,6 +730,190 @@
           </div>
         </div>
       </div>
+
+      <!-- GAB -->
+      <div class="project-card fade-up">
+        <div class="project-image project-image-gab">
+          <div class="project-badge">
+            <svg viewBox="0 0 24 24"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg>
+            AI Tool
+          </div>
+          <span class="project-image-name">GAB</span>
+        </div>
+        <div class="project-content">
+          <h3>GAB - Ghost Author Bot</h3>
+          <p class="description">An AI writing agent that learns how a person communicates and writes in their voice. Uses a comprehensive style profile and 250+ real writing samples organized across 10 categories, with before/after correction pairs and master rules. FastAPI backend with Claude Opus API integration, vanilla HTML/JS/CSS frontend with chat and generate modes, and a profile management system. Designed to produce text that passes AI detection as human-written.</p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Claude API</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">LLM Integration</span>
+            <span class="tag">NLP</span>
+            <span class="tag">Prompt Engineering</span>
+          </div>
+          <div class="project-links">
+            <span class="project-link project-link-secondary" style="cursor: default;">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              Private Tool
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PREVIOUS WORK DIVIDER -->
+      <div class="projects-divider fade-up">
+        <h3>Previous Work — Team 21 Studio</h3>
+      </div>
+
+      <!-- ILYSIA -->
+      <div class="project-card fade-up">
+        <div class="project-image project-image-ilysia">
+          <div class="project-badge">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            VR MMORPG
+          </div>
+          <span class="project-image-name">Ilysia</span>
+        </div>
+        <div class="project-content">
+          <h3>Ilysia - VR MMORPG</h3>
+          <p class="description">Co-founded Team 21 Studio and helped build the first cross-platform VR MMORPG, raising over $5M in total funding including a $159K Kickstarter campaign. Partnered with the VA to create VR rehabilitation environments for veterans, gaining national media coverage on ABC, NBC, and Fox News. Created all game trailers including recording gameplay, editing footage, composing music and SFX. Designed and spoke a custom elven language featured in the game and its trailer. Shipped on Steam for PC VR and Meta platforms.</p>
+          <div class="project-tags">
+            <span class="tag">C#</span>
+            <span class="tag">Unity</span>
+            <span class="tag">Photon</span>
+            <span class="tag">OpenVR</span>
+            <span class="tag">Blender</span>
+            <span class="tag">3D</span>
+            <span class="tag">VR</span>
+            <span class="tag">MMORPG</span>
+            <span class="tag">Kickstarter</span>
+            <span class="tag">Video Production</span>
+            <span class="tag">Community Management</span>
+          </div>
+          <div class="project-links">
+            <a href="https://store.steampowered.com/app/1154120/Ilysia/" class="project-link" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              Steam Store
+            </a>
+            <a href="https://youtu.be/hW6u3SjikPc" class="project-link project-link-secondary" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              Trailer
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAT FOODS -->
+      <div class="project-card fade-up">
+        <div class="project-image project-image-fatfoods">
+          <div class="project-badge">
+            <svg viewBox="0 0 24 24"><line x1="6" y1="11" x2="10" y2="11"></line><line x1="8" y1="9" x2="8" y2="13"></line><line x1="15" y1="12" x2="15.01" y2="12"></line><line x1="18" y1="10" x2="18.01" y2="10"></line><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path></svg>
+            VR Game
+          </div>
+          <span class="project-image-name">Fat Foods</span>
+        </div>
+        <div class="project-content">
+          <h3>Fat Foods - VR Party Game</h3>
+          <p class="description">Solo-developed a VR party game shipped on Steam under Team 21 Studio. Players roll through environments eating food while a second player controls a giant using a frying pan and spatula to stop them. Built all gameplay mechanics, 3D assets, environments, UI, and multiplayer logic in Unity. Features same-room asymmetric multiplayer where the VR player and monitor player have different roles and abilities across multiple levels.</p>
+          <div class="project-tags">
+            <span class="tag">C#</span>
+            <span class="tag">Unity</span>
+            <span class="tag">OpenVR</span>
+            <span class="tag">Blender</span>
+            <span class="tag">3D Modeling</span>
+            <span class="tag">Game Design</span>
+            <span class="tag">VR</span>
+            <span class="tag">Multiplayer</span>
+          </div>
+          <div class="project-links">
+            <a href="https://store.steampowered.com/app/779580/Fat_Foods/" class="project-link" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              Steam Store
+            </a>
+            <a href="https://www.youtube.com/watch?v=suXKtl-VdVQ" class="project-link project-link-secondary" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              Trailer
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAIR OF THE TITANS -->
+      <div class="project-card fade-up">
+        <div class="project-image project-image-lair">
+          <div class="project-badge">
+            <svg viewBox="0 0 24 24"><line x1="6" y1="11" x2="10" y2="11"></line><line x1="8" y1="9" x2="8" y2="13"></line><line x1="15" y1="12" x2="15.01" y2="12"></line><line x1="18" y1="10" x2="18.01" y2="10"></line><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path></svg>
+            VR Game
+          </div>
+          <span class="project-image-name">Lair of the Titans</span>
+        </div>
+        <div class="project-content">
+          <h3>Lair of the Titans - VR Dungeon Crawler</h3>
+          <p class="description">Solo-developed a VR dungeon crawler shipped on Steam under Team 21 Studio. One player sneaks through dungeons in VR stealing treasure while a second player controls a monster hunting them down. Built all gameplay, 3D environments, creature models, AI behavior, and asymmetric multiplayer in Unity. Features same-room competitive play with unique creatures per dungeon level.</p>
+          <div class="project-tags">
+            <span class="tag">C#</span>
+            <span class="tag">Unity</span>
+            <span class="tag">OpenVR</span>
+            <span class="tag">Blender</span>
+            <span class="tag">3D Modeling</span>
+            <span class="tag">Game Design</span>
+            <span class="tag">VR</span>
+            <span class="tag">Multiplayer</span>
+            <span class="tag">AI Behavior</span>
+          </div>
+          <div class="project-links">
+            <a href="https://store.steampowered.com/app/775500/Lair_of_the_Titans/" class="project-link" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              Steam Store
+            </a>
+            <a href="https://www.youtube.com/watch?v=ZrEmgyThZAM" class="project-link project-link-secondary" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              Trailer
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPIRITS OF THE HAUNTED MANSION -->
+      <div class="project-card fade-up">
+        <div class="project-image project-image-spirits">
+          <div class="project-badge">
+            <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+            Audio Fiction
+          </div>
+          <span class="project-image-name">Spirits</span>
+        </div>
+        <div class="project-content">
+          <h3>Spirits Of The Haunted Mansion</h3>
+          <p class="description">Produced a five-month audio fiction podcast across multiple episodes. Wrote scripts using ChatGPT, then created a custom AI voice in ElevenLabs blending Vincent Price and Paul Frees. Composed original music in FL Studio, collected and created sound effects, and edited full episodes together. Distributed on Spotify, Apple Podcasts, and Audible. Rated 4.6 stars on Spotify.</p>
+          <div class="project-tags">
+            <span class="tag">GPT-4</span>
+            <span class="tag">ElevenLabs</span>
+            <span class="tag">FL Studio</span>
+            <span class="tag">AI Voice Cloning</span>
+            <span class="tag">Content Production</span>
+            <span class="tag">Audio Engineering</span>
+          </div>
+          <div class="project-links">
+            <a href="https://open.spotify.com/show/4mNmCFb33fw6G1Iu3uc1Gb" class="project-link" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              Spotify
+            </a>
+            <a href="https://podcasts.apple.com/us/podcast/spirits-of-the-haunted-mansion/id1753416697" class="project-link project-link-secondary" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              Apple Podcasts
+            </a>
+            <a href="https://www.audible.com/podcast/Spirits-Of-The-Haunted-Mansion/B0D3J1YKYG" class="project-link project-link-secondary" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              Audible
+            </a>
+          </div>
+        </div>
+      </div>
+
+      </div>
     </div>
   </section>
 
@@ -692,61 +928,56 @@
         <div class="skill-card fade-up">
           <div class="skill-card-header">
             <div class="skill-icon">
-              <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+              <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
             </div>
-            <h3>Backend Development</h3>
+            <h3>Languages & Frameworks</h3>
           </div>
           <div class="skill-tags">
             <span class="skill-tag">Python</span>
-            <span class="skill-tag">FastAPI</span>
-            <span class="skill-tag">PostgreSQL</span>
-            <span class="skill-tag">Supabase</span>
-            <span class="skill-tag">REST APIs</span>
-          </div>
-        </div>
-        <div class="skill-card fade-up">
-          <div class="skill-card-header">
-            <div class="skill-icon">
-              <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-            </div>
-            <h3>Frontend Development</h3>
-          </div>
-          <div class="skill-tags">
             <span class="skill-tag">JavaScript</span>
             <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">C#</span>
+            <span class="skill-tag">Dart</span>
+            <span class="skill-tag">Flutter</span>
             <span class="skill-tag">HTML/CSS</span>
-            <span class="skill-tag">Dart/Flutter</span>
-            <span class="skill-tag">Framer</span>
           </div>
         </div>
         <div class="skill-card fade-up">
           <div class="skill-card-header">
             <div class="skill-icon">
-              <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+              <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
             </div>
             <h3>AI & Machine Learning</h3>
           </div>
           <div class="skill-tags">
-            <span class="skill-tag">Claude API</span>
+            <span class="skill-tag">GPT-4</span>
+            <span class="skill-tag">LLM</span>
+            <span class="skill-tag">OpenAI</span>
+            <span class="skill-tag">NLP</span>
+            <span class="skill-tag">Deep Learning</span>
+            <span class="skill-tag">Generative AI</span>
+            <span class="skill-tag">ChatBots</span>
             <span class="skill-tag">Prompt Engineering</span>
-            <span class="skill-tag">DistilBERT</span>
-            <span class="skill-tag">LLM Integration</span>
-            <span class="skill-tag">AI Agent Design</span>
           </div>
         </div>
         <div class="skill-card fade-up">
           <div class="skill-card-header">
             <div class="skill-icon">
-              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
             </div>
-            <h3>Browser Extensions</h3>
+            <h3>Backend & APIs</h3>
           </div>
           <div class="skill-tags">
-            <span class="skill-tag">Chrome API</span>
-            <span class="skill-tag">Manifest V3</span>
-            <span class="skill-tag">Content Scripts</span>
-            <span class="skill-tag">Background Workers</span>
-            <span class="skill-tag">Edge Add-ons</span>
+            <span class="skill-tag">FastAPI</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">REST</span>
+            <span class="skill-tag">OAuth</span>
+            <span class="skill-tag">JWT</span>
+            <span class="skill-tag">Stripe</span>
+            <span class="skill-tag">Twilio</span>
+            <span class="skill-tag">Swagger</span>
+            <span class="skill-tag">OpenAPI</span>
+            <span class="skill-tag">Microservices</span>
           </div>
         </div>
         <div class="skill-card fade-up">
@@ -754,28 +985,83 @@
             <div class="skill-icon">
               <svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
             </div>
-            <h3>Cloud & Infrastructure</h3>
+            <h3>Cloud & DevOps</h3>
           </div>
           <div class="skill-tags">
-            <span class="skill-tag">Fly.io</span>
-            <span class="skill-tag">Cloudflare</span>
-            <span class="skill-tag">Vercel</span>
             <span class="skill-tag">Docker</span>
-            <span class="skill-tag">Git/CI-CD</span>
+            <span class="skill-tag">Cloudflare</span>
+            <span class="skill-tag">DigitalOcean</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub Actions</span>
+            <span class="skill-tag">CI/CD</span>
+            <span class="skill-tag">DNS</span>
+            <span class="skill-tag">Supabase</span>
           </div>
         </div>
         <div class="skill-card fade-up">
           <div class="skill-card-header">
             <div class="skill-icon">
-              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
             </div>
-            <h3>SaaS Architecture</h3>
+            <h3>VR & Game Development</h3>
           </div>
           <div class="skill-tags">
+            <span class="skill-tag">Unity</span>
+            <span class="skill-tag">Unreal Engine</span>
+            <span class="skill-tag">OpenVR</span>
+            <span class="skill-tag">OpenGL</span>
+            <span class="skill-tag">Photon</span>
+            <span class="skill-tag">Blender</span>
+            <span class="skill-tag">Oculus Rift</span>
+            <span class="skill-tag">3D</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-card-header">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h3>Security</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Application Security</span>
+            <span class="skill-tag">Cyber Security</span>
+            <span class="skill-tag">Information Security</span>
+            <span class="skill-tag">Encryption</span>
+            <span class="skill-tag">SSO</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-card-header">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+            </div>
+            <h3>Design & Media</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Adobe Creative Suite</span>
+            <span class="skill-tag">Illustrator</span>
+            <span class="skill-tag">Photoshop</span>
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">Blender</span>
+            <span class="skill-tag">UI/UX</span>
+            <span class="skill-tag">Graphic Design</span>
+            <span class="skill-tag">Content Creation</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-card-header">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            </div>
+            <h3>Browser Extensions & SaaS</h3>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Chrome Extensions</span>
             <span class="skill-tag">Stripe Billing</span>
-            <span class="skill-tag">Authentication</span>
-            <span class="skill-tag">API Design</span>
-            <span class="skill-tag">Threat Intelligence</span>
+            <span class="skill-tag">Google Analytics</span>
+            <span class="skill-tag">Email Marketing</span>
+            <span class="skill-tag">Mailchimp</span>
             <span class="skill-tag">Admin Dashboards</span>
           </div>
         </div>
