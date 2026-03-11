@@ -188,6 +188,39 @@
     footer { padding: 40px 24px; text-align: center; border-top: 1px solid var(--card-border); }
     footer p { font-size: 14px; color: var(--text-light); }
     footer span { font-family: 'Noto Sans JP', sans-serif; }
+    .ai-demos { background: var(--cream); }
+    .ai-demos-carousel { position: relative; max-width: 900px; margin: 0 auto; padding: 0 60px; }
+    .carousel-track { display: flex; gap: 24px; overflow: hidden; }
+    .demo-card-slide { flex: 0 0 100%; }
+    .demo-card-inner { display: grid; grid-template-columns: 1fr 1fr; min-height: 340px; background: var(--card-bg); border: 1.5px solid var(--card-border); border-radius: 16px; overflow: hidden; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s; }
+    .demo-card-inner:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(42,31,31,0.08); }
+    .demo-card-preview { background: var(--section-alt); display: flex; align-items: center; justify-content: center; padding: 32px; position: relative; overflow: hidden; }
+    .demo-card-preview::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 40%, var(--red-glow) 0%, transparent 70%); }
+    .mini-grid { display: grid; grid-template-columns: repeat(5, 36px); gap: 3px; position: relative; z-index: 1; }
+    .mini-cell { width: 36px; height: 36px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; font-family: 'DM Sans', sans-serif; }
+    .mini-cell.filled { background: var(--card-bg); color: var(--text-dark); border: 1.5px solid var(--card-border); }
+    .mini-cell.empty { background: var(--cream-dark); }
+    .mini-cell.gold { background: var(--red); color: white; border: 1.5px solid var(--red); }
+    .demo-card-info { padding: 32px; display: flex; flex-direction: column; justify-content: center; }
+    .demo-card-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); background: var(--red-glow); border: 1px solid rgba(200,15,46,0.2); border-radius: 20px; padding: 4px 12px; font-family: 'Space Mono', monospace; margin-bottom: 16px; width: fit-content; }
+    .demo-card-info h3 { font-size: 22px; font-weight: 700; color: var(--text-dark); margin-bottom: 10px; }
+    .demo-card-info p { font-size: 15px; color: var(--text-mid); line-height: 1.6; margin-bottom: 20px; }
+    .demo-card-stats { display: flex; gap: 20px; margin-bottom: 24px; }
+    .demo-card-stat { display: flex; flex-direction: column; }
+    .demo-stat-val { font-size: 18px; font-weight: 800; color: var(--red); line-height: 1.2; font-family: 'Space Mono', monospace; }
+    .demo-stat-label { font-size: 11px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+    .demo-card-cta { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; background: var(--red); border: none; border-radius: 8px; color: white; font-size: 14px; font-weight: 700; text-decoration: none; cursor: pointer; transition: all 0.3s; width: fit-content; }
+    .demo-card-cta:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(200,15,46,0.25); color: white; }
+    .carousel-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: var(--card-bg); border: 1.5px solid var(--card-border); color: var(--text-mid); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; z-index: 2; font-size: 18px; }
+    .carousel-nav:hover { border-color: var(--red); color: var(--red); }
+    .carousel-nav.hidden { display: none; }
+    .carousel-prev { left: 8px; }
+    .carousel-next { right: 8px; }
+    .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
+    .carousel-dots.hidden { display: none; }
+    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cream-darker); cursor: pointer; transition: all 0.3s; border: none; }
+    .carousel-dot.active { background: var(--red); transform: scale(1.2); }
+    @media (max-width: 768px) { .demo-card-inner { grid-template-columns: 1fr; } .demo-card-preview { padding: 24px; min-height: 180px; } .ai-demos-carousel { padding: 0 16px; } .carousel-nav { display: none; } .carousel-track { overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; } .demo-card-slide { scroll-snap-align: center; } }
     @media (max-width: 900px) { .contact-wrapper { grid-template-columns: 1fr; } .about-wrapper { grid-template-columns: 1fr; justify-items: center; } .about-text { text-align: center; } .about-highlights { justify-content: center; } .demo-container { grid-template-columns: 1fr; } .hero-stats { gap: 32px; } }
     @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; } .skills-grid { grid-template-columns: 1fr; } .hero-stats { gap: 24px; flex-wrap: wrap; justify-content: center; } }
     @media (max-width: 600px) { section { padding: 72px 20px; } .project-image { height: 200px; } .project-content { padding: 24px; } .hero { padding: 60px 20px; } .hero-logo { width: 200px; } .hero-stats { gap: 16px; } .hero-stat .stat-number { font-size: 24px; } }
@@ -319,6 +352,49 @@
     </div>
   </section>
 
+  <section class="ai-demos" id="ai-demos">
+    <div class="section-inner">
+      <div class="section-header fade-up">
+        <h2>What I Build With AI</h2>
+        <p>Working apps built with AI as a core component. Each includes a breakdown of what went into building it.</p>
+      </div>
+      <div class="ai-demos-carousel" id="ai-demos-carousel">
+        <button class="carousel-nav carousel-prev" id="carousel-prev" aria-label="Previous">&larr;</button>
+        <button class="carousel-nav carousel-next" id="carousel-next" aria-label="Next">&rarr;</button>
+        <div class="carousel-track" id="carousel-track">
+
+          <!-- AI Crossword Generator -->
+          <div class="demo-card-slide">
+            <div class="demo-card-inner">
+              <div class="demo-card-preview">
+                <div class="mini-grid">
+                  <div class="mini-cell filled">C</div><div class="mini-cell filled">O</div><div class="mini-cell gold">F</div><div class="mini-cell filled">F</div><div class="mini-cell filled">E</div>
+                  <div class="mini-cell empty"></div><div class="mini-cell empty"></div><div class="mini-cell filled">I</div><div class="mini-cell empty"></div><div class="mini-cell empty"></div>
+                  <div class="mini-cell empty"></div><div class="mini-cell empty"></div><div class="mini-cell filled">L</div><div class="mini-cell empty"></div><div class="mini-cell empty"></div>
+                  <div class="mini-cell filled">B</div><div class="mini-cell filled">R</div><div class="mini-cell gold">E</div><div class="mini-cell filled">W</div><div class="mini-cell empty"></div>
+                  <div class="mini-cell empty"></div><div class="mini-cell empty"></div><div class="mini-cell filled">R</div><div class="mini-cell empty"></div><div class="mini-cell empty"></div>
+                </div>
+              </div>
+              <div class="demo-card-info">
+                <div class="demo-card-badge"><svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:var(--red);stroke-width:2;fill:none;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> AI + Algorithm</div>
+                <h3>AI Crossword Generator</h3>
+                <p>Enter any theme, get a valid crossword with clever clues. AI generates themed words, a constraint solver places them in a grid where every intersection works.</p>
+                <div class="demo-card-stats">
+                  <div class="demo-card-stat"><span class="demo-stat-val">~3hrs</span><span class="demo-stat-label">Build time</span></div>
+                  <div class="demo-card-stat"><span class="demo-stat-val">~800</span><span class="demo-stat-label">Lines of code</span></div>
+                  <div class="demo-card-stat"><span class="demo-stat-val">$0.01</span><span class="demo-stat-label">Per puzzle</span></div>
+                </div>
+                <a href="/crossword/" class="demo-card-cta">Try It <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:2.5;fill:none;"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="carousel-dots" id="carousel-dots"></div>
+      </div>
+    </div>
+  </section>
+
   <section class="contact">
     <div class="section-inner">
       <div class="contact-wrapper">
@@ -411,6 +487,24 @@
         }, 300);
       }, 1800);
     }
+
+    // Carousel
+    (function() {
+      const track = document.getElementById('carousel-track');
+      const prevBtn = document.getElementById('carousel-prev');
+      const nextBtn = document.getElementById('carousel-next');
+      const dotsC = document.getElementById('carousel-dots');
+      if (!track) return;
+      const cards = track.querySelectorAll('.demo-card-slide');
+      let cur = 0;
+      cards.forEach((_, i) => { const d = document.createElement('button'); d.className = 'carousel-dot' + (i === 0 ? ' active' : ''); d.addEventListener('click', () => goTo(i)); dotsC.appendChild(d); });
+      function goTo(i) { if (i < 0 || i >= cards.length) return; cur = i; track.scrollTo({ left: cards[cur].offsetLeft - track.offsetLeft, behavior: 'smooth' }); updateUI(); }
+      function updateUI() { prevBtn.classList.toggle('hidden', cur === 0); nextBtn.classList.toggle('hidden', cur === cards.length - 1); dotsC.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === cur)); }
+      prevBtn.addEventListener('click', () => goTo(cur - 1));
+      nextBtn.addEventListener('click', () => goTo(cur + 1));
+      if (cards.length <= 1) { prevBtn.classList.add('hidden'); nextBtn.classList.add('hidden'); dotsC.classList.add('hidden'); }
+      updateUI();
+    })();
 
     const form = document.getElementById('contact-form');
     form.addEventListener('submit', async (e) => {
