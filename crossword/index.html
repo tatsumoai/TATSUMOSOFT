@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Crossword Generator | Tatsumo Soft</title>
+  <meta name="description" content="A themed crossword puzzle generator powered by AI. Enter any theme, get a valid crossword with clever clues. Built by Arthur Fogle at Tatsumo Soft." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    [data-theme="dark"] {
+      --bg: #1a1d23; --surface: #22262e; --surface-light: #2a2f38; --surface-hover: #313742;
+      --border: #333a45; --border-light: #454e5c;
+      --text: #e8eaed; --text-dim: #9aa1ad; --text-faint: #6b7280;
+      --accent: #2dd4bf; --accent-bright: #5eead4; --accent-dim: #0d9488; --accent-glow: rgba(45, 212, 191, 0.25);
+      --cell-bg: #e8eaed; --cell-text: #1a1d23; --cell-selected: #2dd4bf; --cell-selected-text: #0a1a17;
+      --cell-highlight: #c8d0da; --cell-black: #2a2f38;
+      --cell-locked-bg: #134e4a; --cell-locked-text: #5eead4; --cell-locked-border: #2dd4bf;
+      --correct: #34d399; --incorrect: #f87171;
+      --error-bg: rgba(248, 113, 113, 0.1); --error-border: rgba(248, 113, 113, 0.25);
+      --modal-backdrop: rgba(0, 0, 0, 0.6);
+    }
+
+    [data-theme="light"] {
+      --bg: #f0f2f5; --surface: #ffffff; --surface-light: #f7f8fa; --surface-hover: #eef0f3;
+      --border: #d1d5db; --border-light: #e5e7eb;
+      --text: #1f2937; --text-dim: #6b7280; --text-faint: #9ca3af;
+      --accent: #0d9488; --accent-bright: #0f766e; --accent-dim: #115e59; --accent-glow: rgba(13, 148, 136, 0.15);
+      --cell-bg: #ffffff; --cell-text: #1f2937; --cell-selected: #99f6e4; --cell-selected-text: #0a1a17;
+      --cell-highlight: #ccfbf1; --cell-black: #d1d5db;
+      --cell-locked-bg: #d1fae5; --cell-locked-text: #065f46; --cell-locked-border: #34d399;
+      --correct: #10b981; --incorrect: #ef4444;
+      --error-bg: rgba(239, 68, 68, 0.08); --error-border: rgba(239, 68, 68, 0.2);
+      --modal-backdrop: rgba(0, 0, 0, 0.4);
+    }
+
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', -apple-system, sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background 0.3s, color 0.3s; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-bright); }
+
+    .back-nav { padding: 12px 20px; border-bottom: 1px solid var(--border); background: var(--surface); display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; }
+    .back-nav a { font-size: 13px; font-family: 'JetBrains Mono', monospace; color: var(--text-faint); display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .back-nav a:hover { color: var(--accent); }
+    .theme-toggle { background: var(--surface-light); border: 1px solid var(--border); border-radius: 20px; padding: 4px 14px; color: var(--text-dim); font-size: 12px; font-family: 'JetBrains Mono', monospace; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+    #crossword-root { min-height: 60vh; }
+
+    .modal-backdrop { position: fixed; inset: 0; background: var(--modal-backdrop); display: flex; align-items: center; justify-content: center; z-index: 1000; animation: fadeIn 0.15s ease-out; }
+    .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; max-width: 400px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+    .modal-box h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .modal-box p { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.5; }
+    .modal-buttons { display: flex; gap: 10px; justify-content: flex-end; }
+    .modal-btn { padding: 8px 20px; border-radius: 6px; font-size: 13px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.2s; border: 1px solid var(--border); }
+    .modal-btn.cancel { background: var(--surface-light); color: var(--text-dim); }
+    .modal-btn.cancel:hover { background: var(--surface-hover); }
+    .modal-btn.confirm { background: var(--accent); color: #0a1a17; border-color: var(--accent); }
+    .modal-btn.confirm:hover { background: var(--accent-bright); }
+
+    .build-notes { max-width: 760px; margin: 0 auto; padding: 60px 24px 80px; }
+    .build-notes-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 48px; }
+    .build-notes h2 { font-size: 28px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+    .build-notes .subtitle { font-size: 14px; font-family: 'JetBrains Mono', monospace; color: var(--text-faint); margin-bottom: 36px; }
+    .build-notes h3 { font-size: 18px; font-weight: 700; color: var(--accent); margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .build-notes p { font-size: 16px; color: var(--text-dim); margin-bottom: 16px; line-height: 1.7; }
+    .build-notes strong { color: var(--text); }
+    .build-notes code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: var(--surface-light); padding: 2px 6px; border-radius: 3px; color: var(--accent-bright); }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 20px 0 28px; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; text-align: center; transition: background 0.3s; }
+    .stat-card .val { font-size: 24px; font-weight: 800; color: var(--accent-bright); display: block; line-height: 1.2; }
+    .stat-card .label { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; }
+    .tech-tag { font-size: 12px; font-family: 'JetBrains Mono', monospace; padding: 4px 12px; border-radius: 20px; background: var(--surface); border: 1px solid var(--border); color: var(--text-dim); transition: background 0.3s; }
+    .challenge-block { background: var(--surface); border-left: 3px solid var(--accent-dim); padding: 16px 20px; margin: 16px 0; border-radius: 0 6px 6px 0; transition: background 0.3s; }
+    .challenge-block .label { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+    .challenge-block p { margin-bottom: 0; font-size: 15px; }
+
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes wordLockFlash { 0% { box-shadow: 0 0 0 0 transparent; } 30% { box-shadow: 0 0 14px 5px rgba(45, 212, 191, 0.55); } 100% { box-shadow: 0 0 0 0 transparent; } }
+    @keyframes wordLockPop { 0% { transform: scale(1); } 35% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+    @media (max-width: 600px) {
+      .build-notes { padding: 40px 16px 60px; }
+      .build-notes h2 { font-size: 22px; }
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="back-nav">
+    <a href="/">&larr; tatsumosoft.com</a>
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">
+      <span id="theme-icon">&#9790;</span>
+      <span id="theme-label">Light</span>
+    </button>
+  </div>
+
+  <div id="crossword-root"></div>
+
+  <div class="build-notes">
+    <hr class="build-notes-divider" />
+    <h2>How This Was Built</h2>
+    <p class="subtitle">What went into a themed crossword generator from idea to working app</p>
+    <div class="stat-grid">
+      <div class="stat-card"><span class="val">~3hrs</span><span class="label">Idea to working app</span></div>
+      <div class="stat-card"><span class="val">~800</span><span class="label">Lines of code</span></div>
+      <div class="stat-card"><span class="val">1</span><span class="label">API call per puzzle</span></div>
+      <div class="stat-card"><span class="val">~$0.01</span><span class="label">Cost per generation</span></div>
+    </div>
+    <h3>The Problem</h3>
+    <p>I got hooked on crossword apps on my phone, but kept running into the same issues: recycled clues, vague hints, and answers that felt like a stretch just to avoid repeating a previous puzzle. There's no way to pick a topic you're actually interested in, and no guarantee the grid is valid at every intersection.</p>
+    <h3>The AI Piece</h3>
+    <p>Claude (Anthropic's AI) generates the themed word list and clues. I send it a structured prompt with the theme, grid size constraints, and rules about clue quality. It returns a JSON array of answers and clues, which the placement engine then arranges into a valid crossword. The AI handles the creative part (coming up with clever, fair clues that actually relate to the theme), while the algorithm handles the structural part (making sure every letter intersection is valid).</p>
+    <p>For multi-word answers, the app automatically calculates the word count indicator. If the answer is "BACK HOME," the clue displays <code>(4,4)</code> at the end. If it's "HERE I AM," you see <code>(4,1,2)</code>. This is computed from the display form of the answer, not hardcoded by the AI.</p>
+    <h3>The Crossword Engine</h3>
+    <p>This was the real engineering challenge. Generating words is easy. Placing them in a valid crossword grid where every intersection checks out is a constraint satisfaction problem.</p>
+    <div class="challenge-block"><div class="label">How placement works</div><p>Words are sorted longest-first. The first word goes horizontally near the center. For each subsequent word, the engine scans every cell of every placed word looking for matching letters to create perpendicular intersections. It validates bounds, letter conflicts, unintended parallel adjacency, and word boundaries. Multiple shuffled orderings are tried, and the densest valid layout wins.</p></div>
+    <div class="challenge-block"><div class="label">What "valid" means</div><p>Every crossing must produce real letters in both directions. No word can accidentally extend into another. No parallel words can touch without a proper crossing. The cell before and after each word must be empty. These constraints are checked for every candidate position of every word.</p></div>
+    <h3>Tech Stack</h3>
+    <div class="tech-tags">
+      <span class="tech-tag">React (CDN)</span><span class="tech-tag">Vanilla CSS</span><span class="tech-tag">Claude API</span><span class="tech-tag">Cloudflare Workers</span><span class="tech-tag">Constraint Solver</span>
+    </div>
+    <p>The app is a single self-contained HTML file with React loaded via CDN. No build step, no bundler, no framework overhead. The Cloudflare Worker acts as a proxy so the API key stays server-side. The crossword placement engine is ~200 lines of pure JavaScript with no dependencies.</p>
+    <h3>What I'd Add Next</h3>
+    <p>Difficulty settings that control clue obscurity. A timer and scoring system. Saving puzzle state so you can close the tab and come back. A "hint" button that reveals a single letter instead of the whole puzzle. Pre-generated puzzle packs for offline play.</p>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      document.getElementById('theme-icon').textContent = next === 'dark' ? '\u263E' : '\u2600';
+      document.getElementById('theme-label').textContent = next === 'dark' ? 'Light' : 'Dark';
+    }
+  </script>
+
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.9/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useState, useRef, useCallback, useMemo } = React;
+    const API_URL = "https://portfolio-demos-api.dan-a58.workers.dev";
+
+    // ── Crossword Engine ────────────────────────────────────────
+    function createGrid(s) { return Array.from({length:s}, () => Array(s).fill(null)); }
+    function cloneGrid(g) { return g.map(r => [...r]); }
+
+    function canPlace(grid, word, row, col, dir, size, placed) {
+      const len = word.length, dr = dir==="down"?1:0, dc = dir==="across"?1:0;
+      if (row+dr*(len-1)>=size || col+dc*(len-1)>=size || row<0 || col<0) return false;
+      const br=row-dr, bc=col-dc;
+      if (br>=0 && bc>=0 && grid[br][bc]!==null) return false;
+      const ar=row+dr*len, ac=col+dc*len;
+      if (ar<size && ac<size && grid[ar][ac]!==null) return false;
+      let ix=0;
+      for (let i=0;i<len;i++) {
+        const r=row+dr*i, c=col+dc*i, cell=grid[r][c];
+        if (cell!==null) {
+          if (cell!==word[i]) return false;
+          if (!placed.find(p=>p.dir!==dir && p.cells.some(pc=>pc.r===r&&pc.c===c))) return false;
+          ix++;
+        } else {
+          if (dir==="across") {
+            if (r>0&&grid[r-1][c]!==null&&!placed.find(p=>p.dir==="down"&&p.cells.some(pc=>pc.r===r-1&&pc.c===c))) return false;
+            if (r<size-1&&grid[r+1][c]!==null&&!placed.find(p=>p.dir==="down"&&p.cells.some(pc=>pc.r===r+1&&pc.c===c))) return false;
+          } else {
+            if (c>0&&grid[r][c-1]!==null&&!placed.find(p=>p.dir==="across"&&p.cells.some(pc=>pc.r===r&&pc.c===c-1))) return false;
+            if (c<size-1&&grid[r][c+1]!==null&&!placed.find(p=>p.dir==="across"&&p.cells.some(pc=>pc.r===r&&pc.c===c+1))) return false;
+          }
+        }
+      }
+      return placed.length===0||ix>0;
+    }
+
+    function placeWord(grid,word,row,col,dir) {
+      const g=cloneGrid(grid), dr=dir==="down"?1:0, dc=dir==="across"?1:0, cells=[];
+      for(let i=0;i<word.length;i++){const r=row+dr*i,c=col+dc*i;g[r][c]=word[i];cells.push({r,c});}
+      return {grid:g,cells};
+    }
+    function shuffleArray(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+    function buildCrossword(words,size) {
+      const sorted=[...words].sort((a,b)=>b.answer.length-a.answer.length);
+      const toPlace=sorted.slice(0,Math.min(sorted.length,Math.floor(size*1.5)));
+      let best=null,bestN=0;
+      for(let att=0;att<3;att++){
+        let grid=createGrid(size),placed=[];
+        const sh=att===0?[...toPlace]:shuffleArray([...toPlace]);
+        for(let wi=0;wi<sh.length;wi++){
+          const e=sh[wi],w=e.answer;if(w.length>size)continue;
+          if(!placed.length){
+            const r=Math.floor(size/2),c=Math.max(0,Math.floor((size-w.length)/2));
+            if(canPlace(grid,w,r,c,"across",size,placed)){const res=placeWord(grid,w,r,c,"across");grid=res.grid;placed.push({...e,row:r,col:c,dir:"across",cells:res.cells});}
+            continue;
+          }
+          let bp=null,bs=-1;const dirs=wi%2===0?["down","across"]:["across","down"];
+          for(const d of dirs)for(const pw of placed){if(pw.dir===d)continue;for(const{r:pr,c:pc}of pw.cells){const pl=grid[pr][pc];for(let k=0;k<w.length;k++){if(w[k]!==pl)continue;const sr=d==="down"?pr-k:pr,sc=d==="across"?pc-k:pc;if(canPlace(grid,w,sr,sc,d,size,placed)){let sc2=10;const ddr=d==="down"?1:0,ddc=d==="across"?1:0;for(let m=0;m<w.length;m++){const cr=sr+ddr*m,cc=sc+ddc*m;if(grid[cr][cc]===w[m])sc2+=5;sc2-=(Math.abs(cr-size/2)+Math.abs(cc-size/2))*0.1;}if(sc2>bs){bs=sc2;bp={row:sr,col:sc,dir:d};}}}}}
+          if(bp){const res=placeWord(grid,w,bp.row,bp.col,bp.dir);grid=res.grid;placed.push({...e,row:bp.row,col:bp.col,dir:bp.dir,cells:res.cells});}
+        }
+        if(placed.length>bestN){bestN=placed.length;best={grid,placed};}
+      }
+      if(!best||best.placed.length<2)return null;
+      return trimAndNumber(best.grid,best.placed,size);
+    }
+
+    function trimAndNumber(grid,placed,os) {
+      let minR=os,maxR=0,minC=os,maxC=0;
+      for(let r=0;r<os;r++)for(let c=0;c<os;c++)if(grid[r][c]!==null){minR=Math.min(minR,r);maxR=Math.max(maxR,r);minC=Math.min(minC,c);maxC=Math.max(maxC,c);}
+      minR=Math.max(0,minR-1);minC=Math.max(0,minC-1);maxR=Math.min(os-1,maxR+1);maxC=Math.min(os-1,maxC+1);
+      const rows=maxR-minR+1,cols=maxC-minC+1,trimmed=[];
+      for(let r=minR;r<=maxR;r++){const row=[];for(let c=minC;c<=maxC;c++)row.push(grid[r][c]);trimmed.push(row);}
+      const adj=placed.map(p=>({...p,row:p.row-minR,col:p.col-minC,cells:p.cells.map(c=>({r:c.r-minR,c:c.c-minC}))}));
+      const nums={};let num=1;
+      for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){if(trimmed[r][c]===null)continue;const sA=adj.some(p=>p.dir==="across"&&p.row===r&&p.col===c),sD=adj.some(p=>p.dir==="down"&&p.row===r&&p.col===c);if(sA||sD){nums[`${r}-${c}`]=num;adj.forEach(p=>{if(p.row===r&&p.col===c)p.number=num;});num++;}}
+      return {grid:trimmed,placed:adj,numbers:nums,rows,cols};
+    }
+
+    function formatWordLength(d){if(!d)return"";const w=d.trim().split(/\s+/);return w.length<=1?"":` (${w.map(x=>x.length).join(",")})`;}
+
+    async function generateWords(theme,gridSize) {
+      const min=Math.max(6,Math.floor(gridSize*1.2)),max=Math.floor(gridSize*2),ml=gridSize;
+      const prompt=`Generate ${min} to ${max} crossword puzzle answers and clues for the theme: "${theme}"\n\nRules:\n- Each answer can be one word or multiple words\n- No answer should exceed ${ml} characters total (spaces removed)\n- Aim for a mix of lengths: some short (3-5 letters), some medium (6-8), some longer (9-${ml})\n- Clues should be clever but fair, not vague or stretchy\n- For multi-word answers, the clue should NOT state the word count (I'll add that automatically)\n- All answers must genuinely relate to the theme "${theme}"\n- No abbreviations unless the clue says "abbr."\n- Avoid obscure trivia that only experts would know\n\nReturn ONLY a JSON array, no markdown fences, no explanation. Each item:\n{"answer": "BACKYARD", "display": "BACK YARD", "clue": "Where the grill lives"}\n\n"answer" = uppercase, no spaces (this goes in the grid)\n"display" = uppercase with spaces if multi-word (for the word count indicator)\n"clue" = the crossword clue\n\nJSON array only:`;
+      const res=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:2000,messages:[{role:"user",content:prompt}]})});
+      if(!res.ok)throw new Error(`API error ${res.status}: ${await res.text()}`);
+      const data=await res.json();
+      const text=data.content.filter(b=>b.type==="text").map(b=>b.text).join("");
+      return JSON.parse(text.replace(/```json\s*/g,"").replace(/```\s*/g,"").trim()).map(w=>({answer:w.answer.toUpperCase().replace(/\s+/g,""),display:w.display.toUpperCase(),clue:w.clue}));
+    }
+
+    // ── Components ──────────────────────────────────────────────
+    function Cell({letter,number,isBlack,isSelected,isHighlighted,isRevealed,isWrong,isLocked,isFlashing,userValue,onClick}) {
+      if(isBlack) return <div style={{width:"100%",aspectRatio:"1",background:"var(--cell-black)",borderRadius:3}}/>;
+      let bg="var(--cell-bg)",bc="var(--border)",tc="var(--cell-text)";
+      if(isLocked){bg="var(--cell-locked-bg)";bc="var(--cell-locked-border)";tc="var(--cell-locked-text)";}
+      else if(isSelected){bg="var(--cell-selected)";bc="var(--accent)";tc="var(--cell-selected-text)";}
+      else if(isHighlighted){bg="var(--cell-highlight)";bc="var(--border-light)";}
+      if(isRevealed)tc="var(--text-faint)";
+      if(isWrong&&!isLocked)tc="var(--incorrect)";
+      return(
+        <div onClick={onClick} style={{width:"100%",aspectRatio:"1",background:bg,border:`2px solid ${bc}`,borderRadius:3,position:"relative",cursor:isLocked?"default":"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:isFlashing?"none":"background 0.15s, border-color 0.15s",animation:isFlashing?"wordLockFlash 0.6s ease-out, wordLockPop 0.4s ease-out":"none"}}>
+          {number&&<span style={{position:"absolute",top:1,left:3,fontSize:"min(2.2vw, 10px)",fontWeight:700,color:"var(--text-faint)",lineHeight:1,fontFamily:"'DM Sans',sans-serif"}}>{number}</span>}
+          <span style={{fontSize:"min(5vw, 22px)",fontWeight:700,color:tc,fontFamily:"'DM Sans',sans-serif",textTransform:"uppercase",lineHeight:1,userSelect:"none"}}>{isRevealed?letter:(isLocked?letter:(userValue||""))}</span>
+        </div>
+      );
+    }
+
+    function ClueList({title,clues,selectedClue,onSelect,lockedNumbers}) {
+      return(
+        <div style={{marginBottom:16}}>
+          <h3 style={{fontSize:12,fontWeight:800,letterSpacing:"0.12em",textTransform:"uppercase",color:"var(--accent)",marginBottom:8,borderBottom:"2px solid var(--border)",paddingBottom:6}}>{title}</h3>
+          <div style={{display:"flex",flexDirection:"column",gap:3}}>
+            {clues.map(cl=>{
+              const active=selectedClue&&selectedClue.number===cl.number&&selectedClue.dir===cl.dir;
+              const done=lockedNumbers.has(`${cl.dir}-${cl.number}`);
+              return(
+                <div key={`${cl.dir}-${cl.number}`} onClick={()=>onSelect(cl)} style={{padding:"6px 10px",borderRadius:6,cursor:"pointer",transition:"background 0.15s",display:"flex",gap:8,alignItems:"flex-start",background:active?"var(--accent-glow)":done?"rgba(52,211,153,0.08)":"transparent"}}>
+                  <span style={{fontSize:13,fontWeight:700,minWidth:22,color:done?"var(--correct)":active?"var(--accent-bright)":"var(--text-dim)",textDecoration:done?"line-through":"none"}}>{cl.number}</span>
+                  <span style={{fontSize:14,lineHeight:1.4,color:done?"var(--correct)":active?"var(--text)":"var(--text-dim)",textDecoration:done?"line-through":"none"}}>{cl.clue}{formatWordLength(cl.display)}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    function ConfirmModal({onConfirm,onCancel}) {
+      return(
+        <div className="modal-backdrop" onClick={onCancel}>
+          <div className="modal-box" onClick={e=>e.stopPropagation()}>
+            <h3>New Puzzle?</h3>
+            <p>You have an unfinished puzzle. Starting a new one will discard your progress.</p>
+            <div className="modal-buttons">
+              <button className="modal-btn cancel" onClick={onCancel}>Keep Playing</button>
+              <button className="modal-btn confirm" onClick={onConfirm}>New Puzzle</button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // ── Main App ────────────────────────────────────────────────
+    function CrosswordApp() {
+      const [theme,setTheme]=useState("");
+      const [gridSize,setGridSize]=useState(13);
+      const [puzzle,setPuzzle]=useState(null);
+      const [userGrid,setUserGrid]=useState(null);
+      const [selectedCell,setSelectedCell]=useState(null);
+      const [direction,setDirection]=useState("across");
+      const [loading,setLoading]=useState(false);
+      const [error,setError]=useState(null);
+      const [checked,setChecked]=useState(false);
+      const [wrongCells,setWrongCells]=useState(new Set());
+      const [revealedCells,setRevealedCells]=useState(new Set());
+      const [showComplete,setShowComplete]=useState(false);
+      const [lockedCells,setLockedCells]=useState(new Set());
+      const [flashingCells,setFlashingCells]=useState(new Set());
+      const [showConfirm,setShowConfirm]=useState(false);
+      const inputRef=useRef(null);
+
+      const {acrossClues,downClues}=useMemo(()=>{
+        if(!puzzle)return{acrossClues:[],downClues:[]};
+        const ac=puzzle.placed.filter(p=>p.dir==="across").map(p=>({number:p.number,clue:p.clue,display:p.display,dir:"across",row:p.row,col:p.col,cells:p.cells})).sort((a,b)=>a.number-b.number);
+        const dn=puzzle.placed.filter(p=>p.dir==="down").map(p=>({number:p.number,clue:p.clue,display:p.display,dir:"down",row:p.row,col:p.col,cells:p.cells})).sort((a,b)=>a.number-b.number);
+        return{acrossClues:ac,downClues:dn};
+      },[puzzle]);
+
+      const lockedNumbers=useMemo(()=>{
+        if(!puzzle)return new Set();
+        const s=new Set();
+        for(const w of puzzle.placed)if(w.cells.every(({r,c})=>lockedCells.has(`${r}-${c}`)))s.add(`${w.dir}-${w.number}`);
+        return s;
+      },[puzzle,lockedCells]);
+
+      const selectedClue=useMemo(()=>{
+        if(!selectedCell||!puzzle)return null;
+        const{r,c}=selectedCell;
+        return(direction==="across"?acrossClues:downClues).find(cl=>cl.cells.some(cell=>cell.r===r&&cell.c===c))||null;
+      },[selectedCell,direction,acrossClues,downClues,puzzle]);
+
+      const puzzleHasInput=useMemo(()=>userGrid?userGrid.some(r=>r.some(c=>c!=="")):false,[userGrid]);
+
+      const handleNewPuzzle=useCallback(()=>{
+        if(puzzle&&puzzleHasInput&&!showComplete)setShowConfirm(true);
+        else doGenerate();
+      },[puzzle,puzzleHasInput,showComplete]);
+
+      const doGenerate=useCallback(async()=>{
+        if(!theme.trim())return;
+        setShowConfirm(false);setLoading(true);setError(null);setPuzzle(null);setUserGrid(null);
+        setSelectedCell(null);setChecked(false);setWrongCells(new Set());setRevealedCells(new Set());
+        setShowComplete(false);setLockedCells(new Set());setFlashingCells(new Set());
+        try{
+          const words=await generateWords(theme,gridSize);
+          if(!words||words.length<3)throw new Error("Not enough words generated. Try a broader theme.");
+          const result=buildCrossword(words,gridSize);
+          if(!result)throw new Error("Could not build a valid crossword. Try a different theme or larger grid.");
+          setPuzzle(result);setUserGrid(Array.from({length:result.rows},()=>Array(result.cols).fill("")));
+        }catch(err){setError(err.message);}
+        finally{setLoading(false);}
+      },[theme,gridSize]);
+
+      const checkLockedWords=useCallback((grid)=>{
+        if(!puzzle)return;
+        const nl=new Set(lockedCells),nf=new Set();let changed=false;
+        for(const w of puzzle.placed){
+          if(w.cells.every(({r,c})=>nl.has(`${r}-${c}`)))continue;
+          if(w.cells.every(({r,c})=>grid[r]?.[c]===puzzle.grid[r][c])){
+            w.cells.forEach(({r,c})=>{nl.add(`${r}-${c}`);nf.add(`${r}-${c}`);changed=true;});
+          }
+        }
+        if(changed){
+          setLockedCells(nl);setFlashingCells(nf);
+          setTimeout(()=>setFlashingCells(new Set()),700);
+          if(puzzle.placed.every(w=>w.cells.every(({r,c})=>nl.has(`${r}-${c}`))))setShowComplete(true);
+        }
+      },[puzzle,lockedCells]);
+
+      const handleCellClick=useCallback((r,c)=>{
+        if(!puzzle||puzzle.grid[r][c]===null||lockedCells.has(`${r}-${c}`))return;
+        if(selectedCell&&selectedCell.r===r&&selectedCell.c===c){setDirection(d=>d==="across"?"down":"across");}
+        else{
+          setSelectedCell({r,c});
+          const inA=acrossClues.some(cl=>cl.cells.some(cell=>cell.r===r&&cell.c===c));
+          const inD=downClues.some(cl=>cl.cells.some(cell=>cell.r===r&&cell.c===c));
+          if(inA&&!inD)setDirection("across");else if(inD&&!inA)setDirection("down");
+        }
+        setChecked(false);setWrongCells(new Set());
+        setTimeout(()=>inputRef.current?.focus(),10);
+      },[puzzle,selectedCell,acrossClues,downClues,lockedCells]);
+
+      const handleClueSelect=useCallback((cl)=>{
+        setDirection(cl.dir);setSelectedCell({r:cl.row,c:cl.col});
+        setChecked(false);setWrongCells(new Set());
+        setTimeout(()=>inputRef.current?.focus(),10);
+      },[]);
+
+      const moveToNext=useCallback((r,c,dir)=>{
+        if(!puzzle)return;
+        const dr=dir==="down"?1:0,dc=dir==="across"?1:0;
+        let nr=r+dr,nc=c+dc;
+        while(nr<puzzle.rows&&nc<puzzle.cols&&puzzle.grid[nr]?.[nc]!==null&&lockedCells.has(`${nr}-${nc}`)){nr+=dr;nc+=dc;}
+        if(nr<puzzle.rows&&nc<puzzle.cols&&puzzle.grid[nr]?.[nc]!==null)setSelectedCell({r:nr,c:nc});
+      },[puzzle,lockedCells]);
+
+      const moveToPrev=useCallback((r,c,dir)=>{
+        if(!puzzle)return;
+        const dr=dir==="down"?1:0,dc=dir==="across"?1:0;
+        let nr=r-dr,nc=c-dc;
+        while(nr>=0&&nc>=0&&puzzle.grid[nr]?.[nc]!==null&&lockedCells.has(`${nr}-${nc}`)){nr-=dr;nc-=dc;}
+        if(nr>=0&&nc>=0&&puzzle.grid[nr]?.[nc]!==null)setSelectedCell({r:nr,c:nc});
+      },[puzzle,lockedCells]);
+
+      const handleKeyDown=useCallback((e)=>{
+        if(!selectedCell||!puzzle||!userGrid)return;
+        const{r,c}=selectedCell;
+        if(lockedCells.has(`${r}-${c}`)){
+          if(["ArrowRight","ArrowLeft","ArrowDown","ArrowUp","Tab"].includes(e.key)){
+            e.preventDefault();
+            if(e.key==="ArrowRight"){setDirection("across");moveToNext(r,c,"across");}
+            else if(e.key==="ArrowLeft"){setDirection("across");moveToPrev(r,c,"across");}
+            else if(e.key==="ArrowDown"){setDirection("down");moveToNext(r,c,"down");}
+            else if(e.key==="ArrowUp"){setDirection("down");moveToPrev(r,c,"down");}
+            else setDirection(d=>d==="across"?"down":"across");
+          }else e.preventDefault();
+          return;
+        }
+        if(e.key==="ArrowRight"){e.preventDefault();setDirection("across");moveToNext(r,c,"across");}
+        else if(e.key==="ArrowLeft"){e.preventDefault();setDirection("across");moveToPrev(r,c,"across");}
+        else if(e.key==="ArrowDown"){e.preventDefault();setDirection("down");moveToNext(r,c,"down");}
+        else if(e.key==="ArrowUp"){e.preventDefault();setDirection("down");moveToPrev(r,c,"down");}
+        else if(e.key==="Backspace"){e.preventDefault();if(userGrid[r][c]){const g=userGrid.map(r=>[...r]);g[r][c]="";setUserGrid(g);}else moveToPrev(r,c,direction);}
+        else if(e.key==="Tab"){e.preventDefault();setDirection(d=>d==="across"?"down":"across");}
+        else if(/^[a-zA-Z]$/.test(e.key)){
+          e.preventDefault();
+          const g=userGrid.map(r=>[...r]);g[r][c]=e.key.toUpperCase();setUserGrid(g);
+          checkLockedWords(g);moveToNext(r,c,direction);setChecked(false);setWrongCells(new Set());
+        }
+      },[selectedCell,puzzle,userGrid,direction,moveToNext,moveToPrev,lockedCells,checkLockedWords]);
+
+      const checkAnswers=useCallback(()=>{
+        if(!puzzle||!userGrid)return;
+        const wrong=new Set();let allOk=true,allFill=true;
+        for(let r=0;r<puzzle.rows;r++)for(let c=0;c<puzzle.cols;c++)if(puzzle.grid[r][c]!==null&&!lockedCells.has(`${r}-${c}`)){if(!userGrid[r][c]){allFill=false;allOk=false;}else if(userGrid[r][c]!==puzzle.grid[r][c]){wrong.add(`${r}-${c}`);allOk=false;}}
+        setWrongCells(wrong);setChecked(true);if(allOk&&allFill)setShowComplete(true);
+      },[puzzle,userGrid,lockedCells]);
+
+      const revealPuzzle=useCallback(()=>{
+        if(!puzzle)return;const s=new Set();
+        for(let r=0;r<puzzle.rows;r++)for(let c=0;c<puzzle.cols;c++)if(puzzle.grid[r][c]!==null)s.add(`${r}-${c}`);
+        setRevealedCells(s);
+      },[puzzle]);
+
+      const highlightedCells=useMemo(()=>{
+        if(!selectedCell||!puzzle)return new Set();
+        const{r,c}=selectedCell;
+        const cl=(direction==="across"?acrossClues:downClues).find(cl=>cl.cells.some(cell=>cell.r===r&&cell.c===c));
+        return cl?new Set(cl.cells.map(c=>`${c.r}-${c.c}`)):new Set();
+      },[selectedCell,direction,acrossClues,downClues,puzzle]);
+
+      return(
+        <div>
+          {showConfirm&&<ConfirmModal onConfirm={doGenerate} onCancel={()=>setShowConfirm(false)}/>}
+          <input ref={inputRef} type="text" inputMode="text" autoComplete="off" autoCapitalize="characters" onKeyDown={handleKeyDown}
+            onChange={e=>{if(!selectedCell||!puzzle||!userGrid)return;const{r,c}=selectedCell;if(lockedCells.has(`${r}-${c}`)){e.target.value="";return;}const v=e.target.value;if(v&&/[a-zA-Z]/.test(v.slice(-1))){const l=v.slice(-1).toUpperCase();const g=userGrid.map(r=>[...r]);g[r][c]=l;setUserGrid(g);checkLockedWords(g);moveToNext(r,c,direction);setChecked(false);setWrongCells(new Set());}e.target.value="";}}
+            style={{position:"fixed",top:-100,left:-100,width:1,height:1,opacity:0,pointerEvents:"none"}}/>
+
+          <div style={{padding:"16px 20px 12px",borderBottom:"1px solid var(--border)",background:"var(--surface)",transition:"background 0.3s"}}>
+            <div style={{display:"flex",alignItems:"center",gap:12}}>
+              <div style={{width:28,height:28,borderRadius:6,background:"linear-gradient(135deg, var(--accent), var(--accent-dim))",display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,fontWeight:800,color:"#fff"}}>+</div>
+              <div>
+                <h1 style={{fontSize:20,fontWeight:800,letterSpacing:"-0.02em",color:"var(--text)",lineHeight:1.1}}>AI Crossword Generator</h1>
+                <div style={{fontSize:10,color:"var(--text-faint)",fontFamily:"'JetBrains Mono',monospace",letterSpacing:"0.05em"}}>themed puzzles by tatsumo soft</div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{padding:"16px 20px",display:"flex",flexDirection:"column",gap:12,borderBottom:"1px solid var(--border)"}}>
+            <div style={{display:"flex",gap:10,alignItems:"stretch",flexWrap:"wrap"}}>
+              <input type="text" value={theme} onChange={e=>setTheme(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"&&theme.trim()&&!loading)handleNewPuzzle();}} placeholder="Enter a theme..." style={{flex:1,minWidth:160,padding:"10px 14px",background:"var(--surface-light)",border:"1px solid var(--border)",borderRadius:8,color:"var(--text)",fontSize:15,fontFamily:"'DM Sans',sans-serif",transition:"all 0.3s",outline:"none"}}/>
+              <div style={{display:"flex",alignItems:"center",gap:6,background:"var(--surface-light)",border:"1px solid var(--border)",borderRadius:8,padding:"0 12px",transition:"all 0.3s"}}>
+                <span style={{fontSize:11,color:"var(--text-faint)",fontFamily:"'JetBrains Mono',monospace",whiteSpace:"nowrap"}}>Grid</span>
+                <select value={gridSize} onChange={e=>setGridSize(Number(e.target.value))} disabled={loading} style={{background:"transparent",border:"none",color:"var(--accent-bright)",fontSize:14,fontWeight:700,cursor:"pointer"}}>{[9,11,13,15,17,19,21].map(n=><option key={n} value={n} style={{background:"var(--surface)",color:"var(--text)"}}>{n}x{n}</option>)}</select>
+              </div>
+              <button onClick={handleNewPuzzle} disabled={loading||!theme.trim()} style={{padding:"10px 24px",background:loading||!theme.trim()?"var(--surface-light)":"linear-gradient(135deg,var(--accent),var(--accent-dim))",border:"none",borderRadius:8,color:loading||!theme.trim()?"var(--text-faint)":"#fff",fontSize:14,fontWeight:700,cursor:loading||!theme.trim()?"not-allowed":"pointer",whiteSpace:"nowrap",transition:"all 0.2s"}}>{loading?"Generating...":puzzle?"New Puzzle":"Generate"}</button>
+              {puzzle&&<span style={{fontSize:11,color:"var(--text-faint)",fontFamily:"'JetBrains Mono',monospace",alignSelf:"center"}}>{lockedNumbers.size}/{puzzle.placed.length} solved</span>}
+            </div>
+            {loading&&<div style={{padding:"8px 14px",background:"var(--accent-glow)",border:"1px solid rgba(45,212,191,0.2)",borderRadius:8,display:"flex",alignItems:"center",gap:8}}><span style={{width:6,height:6,borderRadius:"50%",background:"var(--accent)",animation:"pulse 1.5s ease-in-out infinite",display:"inline-block"}}/><span style={{fontSize:12,color:"var(--accent-bright)",fontFamily:"'JetBrains Mono',monospace"}}>Building themed crossword...</span></div>}
+            {error&&<div style={{padding:"8px 14px",background:"var(--error-bg)",border:"1px solid var(--error-border)",borderRadius:8,color:"var(--incorrect)",fontSize:13,fontFamily:"'JetBrains Mono',monospace"}}>{error}</div>}
+          </div>
+
+          {puzzle&&(
+            <div style={{animation:"fadeIn 0.3s ease-out"}}>
+              {selectedClue&&<div style={{padding:"10px 20px",background:"var(--accent-glow)",borderBottom:"1px solid var(--border)",display:"flex",gap:8,alignItems:"baseline"}}><span style={{fontSize:13,fontWeight:800,color:"var(--accent-bright)",fontFamily:"'JetBrains Mono',monospace",textTransform:"uppercase",minWidth:20}}>{selectedClue.number}{selectedClue.dir[0].toUpperCase()}</span><span style={{fontSize:15,color:"var(--text)"}}>{selectedClue.clue}{formatWordLength(selectedClue.display)}</span></div>}
+              <div style={{padding:"16px 12px",display:"flex",justifyContent:"center"}}>
+                <div style={{display:"grid",gridTemplateColumns:`repeat(${puzzle.cols},1fr)`,gap:2,width:"100%",maxWidth:Math.min(puzzle.cols*38,500)}}>
+                  {puzzle.grid.map((row,r)=>row.map((cell,c)=>{const k=`${r}-${c}`;return <Cell key={k} letter={cell} number={puzzle.numbers[k]} isBlack={cell===null} isSelected={selectedCell&&selectedCell.r===r&&selectedCell.c===c} isHighlighted={highlightedCells.has(k)} isRevealed={revealedCells.has(k)} isWrong={wrongCells.has(k)} isLocked={lockedCells.has(k)} isFlashing={flashingCells.has(k)} userValue={userGrid?userGrid[r]?.[c]:""} onClick={()=>handleCellClick(r,c)}/>;}))}
+                </div>
+              </div>
+              <div style={{padding:"8px 20px 16px",display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
+                <button onClick={checkAnswers} style={{padding:"8px 20px",background:"var(--surface-light)",border:"1px solid var(--border-light)",borderRadius:8,color:"var(--text)",fontSize:13,fontWeight:700,cursor:"pointer",transition:"all 0.2s"}}>Check</button>
+                <button onClick={revealPuzzle} style={{padding:"8px 20px",background:"var(--surface-light)",border:"1px solid var(--border-light)",borderRadius:8,color:"var(--text-dim)",fontSize:13,fontWeight:700,cursor:"pointer",transition:"all 0.2s"}}>Reveal</button>
+              </div>
+              {showComplete&&<div style={{margin:"0 20px 16px",padding:"14px 20px",background:"rgba(52,211,153,0.12)",border:"1px solid rgba(52,211,153,0.3)",borderRadius:8,textAlign:"center",fontSize:16,fontWeight:700,color:"var(--correct)"}}>Puzzle complete!</div>}
+              {checked&&!showComplete&&wrongCells.size>0&&<div style={{margin:"0 20px 16px",padding:"10px 16px",background:"var(--error-bg)",border:"1px solid var(--error-border)",borderRadius:8,textAlign:"center",fontSize:13,color:"var(--incorrect)",fontFamily:"'JetBrains Mono',monospace"}}>{wrongCells.size} incorrect cell{wrongCells.size!==1?"s":""} highlighted</div>}
+              {checked&&!showComplete&&wrongCells.size===0&&<div style={{margin:"0 20px 16px",padding:"10px 16px",background:"var(--accent-glow)",border:"1px solid rgba(45,212,191,0.2)",borderRadius:8,textAlign:"center",fontSize:13,color:"var(--accent-bright)",fontFamily:"'JetBrains Mono',monospace"}}>No errors so far, but some cells are still empty</div>}
+              <div style={{padding:"0 20px 40px",display:"grid",gridTemplateColumns:"1fr 1fr",gap:20}}>
+                <ClueList title="Across" clues={acrossClues} selectedClue={selectedClue} onSelect={handleClueSelect} lockedNumbers={lockedNumbers}/>
+                <ClueList title="Down" clues={downClues} selectedClue={selectedClue} onSelect={handleClueSelect} lockedNumbers={lockedNumbers}/>
+              </div>
+            </div>
+          )}
+          {!puzzle&&!loading&&<div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"80px 40px",textAlign:"center"}}><div style={{fontSize:48,fontWeight:800,color:"var(--border)",lineHeight:1,marginBottom:16}}>+</div><p style={{fontSize:15,color:"var(--text-faint)",maxWidth:320,lineHeight:1.6}}>Enter a theme and grid size above, then hit Generate to build a custom crossword puzzle.</p><p style={{fontSize:12,color:"var(--text-faint)",opacity:0.6,marginTop:12,fontFamily:"'JetBrains Mono',monospace"}}>Try themes like "90s movies" or "coffee" or "space exploration"</p></div>}
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById("crossword-root")).render(<CrosswordApp/>);
+  </script>
+</body>
+</html>
