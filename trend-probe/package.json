@@ -1,0 +1,21 @@
+{
+  "name": "tatsumo-trend-probe",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13 <23"
+  },
+  "scripts": {
+    "probe": "node --env-file-if-exists=.env src/cli.mjs",
+    "test": "node --test",
+    "tracker": "node --env-file-if-exists=.env src/tracker/server.mjs",
+    "tracker:collect": "node --env-file-if-exists=.env src/tracker/collect.mjs",
+    "tracker:evidence": "node src/tracker/evidence.mjs",
+    "tracker:preview": "node --env-file-if-exists=.env src/tracker/export_preview.mjs"
+  },
+  "dependencies": {
+    "fast-xml-parser": "5.12.0",
+    "ws": "8.22.1"
+  }
+}

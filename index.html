@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Danny Fogle - Full-Stack AI Product Engineer. Building and shipping AI-powered SaaS products. Hirewall, Screen Shield, and more.">
   <title>Tatsumo Soft | Portfolio</title>
+  <link rel="stylesheet" href="tracker.css">
+  <script src="tracker.js" defer></script>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -182,6 +184,24 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="trend-radar" id="trend-radar" data-api="/api/trends" data-preview="/trend-preview.json" aria-labelledby="radar-heading">
+    <div class="section-inner">
+      <div class="radar-heading"><div><p class="radar-eyebrow" id="radar-eyebrow">A LIVE EXPERIMENT / TATSUMO SOFT</p><h2 id="radar-heading">Catch the next wave.</h2><p>Topics and tags gaining attention across the open web.</p></div><span class="radar-status" id="radar-status" role="status">Connecting</span></div>
+      <div class="radar-window">
+        <div class="radar-toolbar"><div><strong>Trend Radar</strong><span class="radar-period">14-day history · Top 100 by percentage growth</span></div><span id="radar-updated">Waiting for data</span></div>
+        <p id="radar-preview" class="radar-preview" hidden></p>
+        <div class="radar-controls"><div role="group" aria-label="Trend age"><button type="button" data-age="all" aria-pressed="true">All trends</button><button type="button" data-age="new" aria-pressed="false">New &amp; Recent</button><button type="button" data-age="legacy" aria-pressed="false">Legacy</button><button type="button" data-age="unknown" aria-pressed="false">Age unknown</button></div><label><span class="radar-sr">Search the top 100</span><input id="radar-search" type="search" placeholder="Find a topic…" maxlength="100"></label></div>
+        <p id="radar-summary" class="radar-summary" aria-live="polite">Loading the latest ranking…</p>
+        <p class="radar-data-note"><strong>Rank follows percentage growth.</strong> A smaller tag rising quickly can rank above a widely used tag growing slowly. Each row shows the source and baseline used for its rank.</p>
+        <p class="radar-data-note">Usage counts show their source and available dates. Mastodon supplies daily history, Bluesky counts captured hashtag posts, and Reddit counts collected title matches. Counts from different platforms are kept separate.</p>
+        <div class="radar-scroll" tabindex="0" role="region" aria-label="Trend leaderboard"><table class="radar-table"><thead><tr><th scope="col">Growth rank</th><th scope="col">Topic / tag</th><th scope="col">Usage totals</th><th scope="col">Growth comparison</th><th scope="col">14-day activity</th><th scope="col">Sources</th></tr></thead><tbody id="radar-rows"></tbody></table></div>
+        <div class="radar-footer"><span id="radar-sources">Checking source health…</span><button type="button" id="radar-refresh">Refresh</button></div>
+        <div id="radar-reddit" class="radar-reddit" aria-live="polite"><strong>Reddit discovery</strong><p>Waiting for the collector.</p></div>
+      </div>
+      <details class="radar-explainer"><summary>How growth and age labels work</summary><p>Growth shows the change in usage rate relative to the same topic’s recent baseline. A 3× rate is +200% growth. Bluesky compares the last 6 hours with the preceding 24 hours per hour, requiring at least 95% recorded stream coverage in both periods. Reddit discovery highlights repeated topics across communities and changes in feed position. Its Rising, Hot, and search samples do not establish complete Reddit usage-growth percentages. Mastodon compares its latest complete UTC day with the average of the preceding consecutive complete days (at least three). At least 20 observations are required in each comparison period. Topics are ordered by their largest measured source-specific percentage increase; sources and time windows remain visible in “Why this rank?”. Insufficient history or low-volume topics are marked without a growth number and appear after measured topics if space remains. Usage totals come from source-reported daily counts or distinct captured posts, not ranking points. Mastodon daily counts use UTC dates and may initially cover fewer than 14 days; its last full day is shown separately from today. Bluesky counts explicit hashtags in the past 24 hours and includes imported historical replay when available. These counts describe each source's coverage, not the entire internet. Reddit counts distinct collected posts with matching title words or phrases; comments and image text are excluded. Charts show raw uses or captured posts for the named source. Dates without history are gaps rather than zeros. Hover, tap, or use arrow keys for the date and count at each point.</p><p>Legacy means dated evidence places the topic more than six calendar months ago. New &amp; Recent means the earliest available evidence is within six months. Without verified origin evidence, it is marked Estimated and may change to Legacy if older history is found. Age unknown means no dated evidence is available. First collected does not mean newly invented.</p><p>Source history uses dated trend-feed entries, story and post publication times, and daily hashtag usage. These dates show how far back the available evidence goes. They can precede our collection start, but a limited history does not establish a trend's first-ever use.</p><p>Bluesky contributes selected topics and live hashtags, Google contributes US search trends, Mastodon contributes tags observed by mastodon.social, Hacker News contributes technology stories, and Reddit contributes recurring title words and phrases from the monitored communities. Related phrases are grouped by exact normalized names and curated aliases; semantic grouping and image-meme recognition are not yet included.</p><p id="radar-coverage">The initial history builds as collection runs. Source links and age evidence are available in each topic row.</p></details>
     </div>
   </section>
 
