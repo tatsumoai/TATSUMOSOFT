@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Danny Fogle - Full-Stack AI Product Engineer. Building and shipping AI-powered SaaS products. Hirewall, Screen Shield, and more.">
+  <meta name="description" content="Arthur Fogle - Full-Stack AI Product Engineer. Building and shipping AI-powered SaaS products. Hirewall, Screen Shield, and more.">
   <title>Tatsumo Soft | Portfolio</title>
   <link rel="stylesheet" href="tracker.css">
   <script src="tracker.js" defer></script>
@@ -36,52 +36,35 @@
     body { font-family: 'DM Sans', sans-serif; background-color: var(--cream); color: var(--text-dark); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
     a { color: inherit; text-decoration: none; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes blink { 0%, 100% { border-color: var(--red); } 50% { border-color: transparent; } }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-    @keyframes bobbing { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
     .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
     .stagger-1 { transition-delay: 0.05s; } .stagger-2 { transition-delay: 0.1s; } .stagger-3 { transition-delay: 0.15s; } .stagger-4 { transition-delay: 0.2s; }
     .stagger-5 { transition-delay: 0.25s; } .stagger-6 { transition-delay: 0.3s; } .stagger-7 { transition-delay: 0.35s; } .stagger-8 { transition-delay: 0.4s; }
-    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 80px 24px; position: relative; overflow: hidden; }
+    .hero { padding: 28px 24px 48px; position: relative; overflow: hidden; }
     .hero::before { content: ''; position: absolute; top: -200px; right: -200px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(200,15,46,0.06) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
     .hero::after { content: ''; position: absolute; bottom: -300px; left: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(200,15,46,0.04) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
-    .hero-logo { width: 260px; margin-bottom: 40px; opacity: 0; animation: fadeUp 0.8s ease 0.1s forwards; }
-    .hero-title-wrapper { overflow: hidden; margin-bottom: 20px; opacity: 0; animation: fadeIn 0.5s ease 0.3s forwards; }
-    .hero h1 { font-size: clamp(40px, 6vw, 68px); font-weight: 800; line-height: 1.08; letter-spacing: -1px; }
-    .hero h1 .typed-text { color: var(--red); border-right: 3px solid var(--red); animation: blink 0.8s step-end infinite; white-space: nowrap; display: inline-block; }
-    .hero-subtitle { font-size: clamp(17px, 2.2vw, 22px); color: var(--text-mid); font-weight: 500; max-width: 600px; line-height: 1.5; margin-bottom: 16px; opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards; }
-    .hero-tagline { font-size: 16px; color: var(--text-light); line-height: 1.6; max-width: 520px; margin-bottom: 40px; opacity: 0; animation: fadeUp 0.8s ease 0.65s forwards; }
-    .hero-stats { display: flex; gap: 48px; margin-bottom: 40px; opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards; }
-    .hero-stat { text-align: center; }
-    .hero-stat .stat-number { font-size: clamp(28px, 3.5vw, 40px); font-weight: 800; color: var(--red); font-family: 'Space Mono', monospace; line-height: 1.1; }
-    .hero-stat .stat-label { font-size: 13px; color: var(--text-light); font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .hero-socials { display: flex; gap: 16px; opacity: 0; animation: fadeUp 0.8s ease 0.95s forwards; }
+    .hero .section-inner { position: relative; z-index: 1; }
+    .hero-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
+    .hero-logo { display: block; width: 220px; height: auto; }
+    .hero-intro { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 48px; align-items: start; }
+    .hero-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border: 3px solid var(--card-border); border-radius: 16px; box-shadow: 10px 10px 0 var(--cream-dark); }
+    .hero h1 { font-size: clamp(32px, 4vw, 44px); font-weight: 800; line-height: 1.12; letter-spacing: -1px; margin-bottom: 18px; }
+    .hero h1 span { color: var(--red); }
+    .hero-bio p { font-size: 16px; color: var(--text-mid); line-height: 1.7; margin-bottom: 14px; }
+    .hero-bio p:last-child { margin-bottom: 0; }
+    .hero-socials { display: flex; gap: 12px; }
     .social-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--card-bg); border: 1.5px solid var(--card-border); display: flex; align-items: center; justify-content: center; transition: all 0.3s cubic-bezier(0.16,1,0.3,1); cursor: pointer; }
     .social-btn:hover { background: var(--red); border-color: var(--red); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(200,15,46,0.25); }
     .social-btn:hover svg { stroke: var(--cream); }
     .social-btn svg { width: 20px; height: 20px; stroke: var(--text-mid); stroke-width: 2; fill: none; transition: stroke 0.3s ease; }
-    .scroll-hint { position: absolute; bottom: 32px; opacity: 0; animation: fadeIn 1s ease 1.5s forwards; }
-    .scroll-hint svg { width: 24px; height: 24px; stroke: var(--text-light); stroke-width: 2; fill: none; animation: bobbing 2s ease-in-out infinite; }
     section { padding: 100px 24px; }
     .section-inner { max-width: 1100px; margin: 0 auto; }
     .section-header { text-align: center; margin-bottom: 64px; }
     .section-header h2 { font-size: clamp(32px, 4vw, 48px); font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
     .section-header p { font-size: 18px; color: var(--text-mid); max-width: 560px; margin: 0 auto; line-height: 1.6; }
-    .about { background: var(--section-alt); }
-    .about-wrapper { display: grid; grid-template-columns: 300px 1fr; gap: 60px; align-items: start; }
-    .about-photo-wrapper { position: relative; }
-    .about-photo { width: 300px; height: 360px; border-radius: 16px; overflow: hidden; border: 3px solid var(--card-border); background: var(--cream-dark); position: relative; }
-    .about-photo img { width: 100%; height: 100%; object-fit: cover; }
-    .about-photo-wrapper::after { content: ''; position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px; border: 2px solid var(--red); border-radius: 16px; z-index: -1; opacity: 0.3; }
-    .about-text h2 { font-size: clamp(28px, 3.5vw, 38px); font-weight: 700; margin-bottom: 20px; letter-spacing: -0.5px; }
-    .about-text h2 span { color: var(--red); }
-    .about-text p { font-size: 16.5px; color: var(--text-mid); line-height: 1.75; margin-bottom: 16px; }
-    .about-highlights { display: flex; gap: 24px; margin-top: 28px; flex-wrap: wrap; }
-    .about-highlight { display: flex; align-items: center; gap: 10px; padding: 10px 18px; background: var(--card-bg); border: 1.5px solid var(--card-border); border-radius: 10px; font-size: 14px; font-weight: 600; color: var(--text-mid); }
-    .about-highlight svg { width: 18px; height: 18px; stroke: var(--red); stroke-width: 2; fill: none; flex-shrink: 0; }
-    .projects { background: var(--cream); }
+    .projects { background: var(--cream); padding-top: 36px; border-top: 1px solid var(--card-border); }
+    .projects .section-header { margin-bottom: 32px; }
     .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
     .project-card { background: var(--card-bg); border: 1.5px solid var(--card-border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s cubic-bezier(0.16,1,0.3,1); }
     .project-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(42,31,31,0.1); }
@@ -144,64 +127,30 @@
     footer { padding: 40px 24px; text-align: center; border-top: 1px solid var(--card-border); }
     footer p { font-size: 14px; color: var(--text-light); }
     footer span { font-family: 'Noto Sans JP', sans-serif; }
-    @media (max-width: 900px) { .contact-wrapper { grid-template-columns: 1fr; } .about-wrapper { grid-template-columns: 1fr; justify-items: center; } .about-text { text-align: center; } .about-highlights { justify-content: center; } .hero-stats { gap: 32px; } }
-    @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; } .skills-grid { grid-template-columns: 1fr; } .hero-stats { gap: 24px; flex-wrap: wrap; justify-content: center; } }
-    @media (max-width: 600px) { section { padding: 72px 20px; } .project-image { height: 200px; } .project-content { padding: 24px; } .hero { padding: 60px 20px; } .hero-logo { width: 200px; } .hero-stats { gap: 16px; } .hero-stat .stat-number { font-size: 24px; } }
+    @media (max-width: 900px) { .contact-wrapper { grid-template-columns: 1fr; } .hero-intro { grid-template-columns: 220px minmax(0, 1fr); gap: 32px; } }
+    @media (max-width: 768px) { .projects-grid, .skills-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { section { padding: 72px 20px; } .project-image { height: 200px; } .project-content { padding: 24px; } .hero { padding: 24px 20px 36px; } .hero-header { gap: 16px; margin-bottom: 24px; } .hero-logo { width: 155px; } .hero-socials { gap: 8px; } .social-btn { width: 36px; height: 36px; } .social-btn svg { width: 17px; height: 17px; } .hero-intro { display: flow-root; } .hero-photo { float: right; width: 112px; margin: 0 0 16px 20px; border-radius: 12px; box-shadow: 5px 5px 0 var(--cream-dark); } .hero-bio h1 { font-size: 32px; } .hero-bio p { font-size: 15px; line-height: 1.65; } .projects { padding-top: 32px; } }
   </style>
 </head>
 <body>
-  <section class="hero">
-    <img src="Tatsumo_Long.png" alt="Tatsumo Soft" class="hero-logo">
-    <div class="hero-title-wrapper"><h1>Full-Stack <span class="typed-text" id="typed-text"></span></h1></div>
-    <p class="hero-subtitle">Building and shipping AI-powered SaaS products from zero to live in weeks.</p>
-    <p class="hero-tagline">I build the whole stack: browser extensions, APIs, infrastructure, billing, and AI integration. Fast execution, real products, no fluff.</p>
-    <div class="hero-stats">
-      <div class="hero-stat"><div class="stat-number" data-target="8" data-suffix="">0</div><div class="stat-label">Products Shipped</div></div>
-      <div class="hero-stat"><div class="stat-number" data-target="3" data-suffix=" Weeks" data-prefix="">0</div><div class="stat-label">Avg Build Time</div></div>
-    </div>
-    <div class="hero-socials">
+  <section class="hero" aria-labelledby="intro-heading">
+    <div class="section-inner">
+      <div class="hero-header">
+        <img src="Tatsumo_Long.png" alt="Tatsumo Soft" class="hero-logo" width="4096" height="1200">
+        <div class="hero-socials">
       <a href="https://github.com/tatsumoai" class="social-btn" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
       <a href="https://linkedin.com/in/arthurfogle" class="social-btn" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
       <a href="mailto:danny@tatsumosoft.com" class="social-btn" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
-    </div>
-    <div class="scroll-hint"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
-  </section>
-
-  <section class="about">
-    <div class="section-inner">
-      <div class="about-wrapper">
-        <div class="about-photo-wrapper fade-up">
-          <div class="about-photo"><img src="headshot.png" alt="Danny Fogle"></div>
-        </div>
-        <div class="about-text fade-up stagger-2">
-          <h2>Hey, I'm <span>Danny</span>.</h2>
-          <p>I co-founded a VR gaming company (Team 21 Studio) in 2016, shipped games to Steam and Meta Quest, partnered with the VA to build VR rehabilitation software for veterans, and got national media coverage on ABC, NBC, and Fox News. I ran that company as Chief Creative Officer for nearly a decade.</p>
-          <p>In 2025 I founded Tatsumo Soft and pivoted to AI product engineering. I build full-stack SaaS products from idea to shipped in compressed timelines: browser extensions, APIs, mobile apps, billing, and AI integration. Hirewall, my flagship product, went from concept to live on the Chrome Web Store in under three weeks.</p>
-          <p>I'm looking for product management and AI engineering roles where I can bring that same build-fast-ship-real-products energy to a team.</p>
-          <div class="about-highlights">
-            <div class="about-highlight"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>8 Products Shipped</div>
-            <div class="about-highlight"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>ABC / NBC / Fox</div>
-          </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="trend-radar" id="trend-radar" data-api="/api/trends" data-preview="/trend-preview.json" aria-labelledby="radar-heading">
-    <div class="section-inner">
-      <div class="radar-heading"><div><p class="radar-eyebrow" id="radar-eyebrow">A LIVE EXPERIMENT / TATSUMO SOFT</p><h2 id="radar-heading">Catch the next wave.</h2><p>Topics and tags gaining attention across the open web.</p></div><span class="radar-status" id="radar-status" role="status">Connecting</span></div>
-      <div class="radar-window">
-        <div class="radar-toolbar"><div><strong>Trend Radar</strong><span class="radar-period">14-day history · Top 100 by percentage growth</span></div><span id="radar-updated">Waiting for data</span></div>
-        <p id="radar-preview" class="radar-preview" hidden></p>
-        <div class="radar-controls"><div role="group" aria-label="Trend age"><button type="button" data-age="all" aria-pressed="true">All trends</button><button type="button" data-age="new" aria-pressed="false">New &amp; Recent</button><button type="button" data-age="legacy" aria-pressed="false">Legacy</button><button type="button" data-age="unknown" aria-pressed="false">Age unknown</button></div><label><span class="radar-sr">Search the top 100</span><input id="radar-search" type="search" placeholder="Find a topic…" maxlength="100"></label></div>
-        <p id="radar-summary" class="radar-summary" aria-live="polite">Loading the latest ranking…</p>
-        <p class="radar-data-note"><strong>Rank follows percentage growth.</strong> A smaller tag rising quickly can rank above a widely used tag growing slowly. Each row shows the source and baseline used for its rank.</p>
-        <p class="radar-data-note">Usage counts show their source and available dates. Mastodon supplies daily history, Bluesky counts captured hashtag posts, and Reddit counts collected title matches. Counts from different platforms are kept separate.</p>
-        <div class="radar-scroll" tabindex="0" role="region" aria-label="Trend leaderboard"><table class="radar-table"><thead><tr><th scope="col">Growth rank</th><th scope="col">Topic / tag</th><th scope="col">Usage totals</th><th scope="col">Growth comparison</th><th scope="col">14-day activity</th><th scope="col">Sources</th></tr></thead><tbody id="radar-rows"></tbody></table></div>
-        <div class="radar-footer"><span id="radar-sources">Checking source health…</span><button type="button" id="radar-refresh">Refresh</button></div>
-        <div id="radar-reddit" class="radar-reddit" aria-live="polite"><strong>Reddit discovery</strong><p>Waiting for the collector.</p></div>
+      <div class="hero-intro">
+        <img src="headshot.png" alt="Arthur Fogle" class="hero-photo" width="800" height="800" fetchpriority="high">
+        <div class="hero-bio">
+          <h1 id="intro-heading"><span>Arthur</span> Fogle</h1>
+          <p>I’m a founder, product engineer, and creative leader with a decade of experience bringing games and software to market. In 2016, I co-founded Team 21 Studio and spent nearly a decade as Chief Creative Officer, leading teams across design, engineering, and art. I helped secure more than $5 million in funding and guided Ilysia, a multiplayer VR world, through its release on Steam and Meta Quest.</p>
+          <p>I also worked directly with a VA clinic, veterans, and caregivers to create VR rehabilitation experiences—a collaboration covered by ABC, NBC, and Fox News. Today, I lead Tatsumo Soft, where I build AI-powered products such as Hirewall, a browser extension that helps people identify job scams and phishing. I stay involved from the first product decisions through design, engineering, and launch.</p>
+        </div>
       </div>
-      <details class="radar-explainer"><summary>How growth and age labels work</summary><p>Growth shows the change in usage rate relative to the same topic’s recent baseline. A 3× rate is +200% growth. Bluesky compares the last 6 hours with the preceding 24 hours per hour, requiring at least 95% recorded stream coverage in both periods. Reddit discovery highlights repeated topics across communities and changes in feed position. Its Rising, Hot, and search samples do not establish complete Reddit usage-growth percentages. Mastodon compares its latest complete UTC day with the average of the preceding consecutive complete days (at least three). At least 20 observations are required in each comparison period. Topics are ordered by their largest measured source-specific percentage increase; sources and time windows remain visible in “Why this rank?”. Insufficient history or low-volume topics are marked without a growth number and appear after measured topics if space remains. Usage totals come from source-reported daily counts or distinct captured posts, not ranking points. Mastodon daily counts use UTC dates and may initially cover fewer than 14 days; its last full day is shown separately from today. Bluesky counts explicit hashtags in the past 24 hours and includes imported historical replay when available. These counts describe each source's coverage, not the entire internet. Reddit counts distinct collected posts with matching title words or phrases; comments and image text are excluded. Charts show raw uses or captured posts for the named source. Dates without history are gaps rather than zeros. Hover, tap, or use arrow keys for the date and count at each point.</p><p>Legacy means dated evidence places the topic more than six calendar months ago. New &amp; Recent means the earliest available evidence is within six months. Without verified origin evidence, it is marked Estimated and may change to Legacy if older history is found. Age unknown means no dated evidence is available. First collected does not mean newly invented.</p><p>Source history uses dated trend-feed entries, story and post publication times, and daily hashtag usage. These dates show how far back the available evidence goes. They can precede our collection start, but a limited history does not establish a trend's first-ever use.</p><p>Bluesky contributes selected topics and live hashtags, Google contributes US search trends, Mastodon contributes tags observed by mastodon.social, Hacker News contributes technology stories, and Reddit contributes recurring title words and phrases from the monitored communities. Related phrases are grouped by exact normalized names and curated aliases; semantic grouping and image-meme recognition are not yet included.</p><p id="radar-coverage">The initial history builds as collection runs. Source links and age evidence are available in each topic row.</p></details>
     </div>
   </section>
 
@@ -280,35 +229,29 @@
     </div>
   </section>
 
+  <section class="trend-radar" id="trend-radar" data-api="/api/trends" data-preview="/trend-preview.json" aria-labelledby="radar-heading">
+    <div class="section-inner">
+      <div class="radar-heading"><div><p class="radar-eyebrow" id="radar-eyebrow">A LIVE EXPERIMENT / TATSUMO SOFT</p><h2 id="radar-heading">Catch the next wave.</h2><p>Topics and tags gaining attention across the open web.</p></div><span class="radar-status" id="radar-status" role="status">Connecting</span></div>
+      <div class="radar-window">
+        <div class="radar-toolbar"><div><strong>Trend Radar</strong><span class="radar-period">14-day history · Top 100 by percentage growth</span></div><span id="radar-updated">Waiting for data</span></div>
+        <p id="radar-preview" class="radar-preview" hidden></p>
+        <div class="radar-controls"><div role="group" aria-label="Trend age"><button type="button" data-age="all" aria-pressed="true">All trends</button><button type="button" data-age="new" aria-pressed="false">New &amp; Recent</button><button type="button" data-age="legacy" aria-pressed="false">Legacy</button><button type="button" data-age="unknown" aria-pressed="false">Age unknown</button></div><label><span class="radar-sr">Search the top 100</span><input id="radar-search" type="search" placeholder="Find a topic…" maxlength="100"></label></div>
+        <p id="radar-summary" class="radar-summary" aria-live="polite">Loading the latest ranking…</p>
+        <p class="radar-data-note"><strong>Rank follows percentage growth.</strong> A smaller tag rising quickly can rank above a widely used tag growing slowly. Each row shows the source and baseline used for its rank.</p>
+        <p class="radar-data-note">Usage counts show their source and available dates. Mastodon supplies daily history, Bluesky counts captured hashtag posts, and Reddit counts collected title matches. Counts from different platforms are kept separate.</p>
+        <div class="radar-scroll" tabindex="0" role="region" aria-label="Trend leaderboard"><table class="radar-table"><thead><tr><th scope="col">Growth rank</th><th scope="col">Topic / tag</th><th scope="col">Usage totals</th><th scope="col">Growth comparison</th><th scope="col">14-day activity</th><th scope="col">Sources</th></tr></thead><tbody id="radar-rows"></tbody></table></div>
+        <div class="radar-footer"><span id="radar-sources">Checking source health…</span><button type="button" id="radar-refresh">Refresh</button></div>
+        <div id="radar-reddit" class="radar-reddit" aria-live="polite"><strong>Reddit discovery</strong><p>Waiting for the collector.</p></div>
+      </div>
+      <details class="radar-explainer"><summary>How growth and age labels work</summary><p>Growth shows the change in usage rate relative to the same topic’s recent baseline. A 3× rate is +200% growth. Bluesky compares the last 6 hours with the preceding 24 hours per hour, requiring at least 95% recorded stream coverage in both periods. Reddit discovery highlights repeated topics across communities and changes in feed position. Its Rising, Hot, and search samples do not establish complete Reddit usage-growth percentages. Mastodon compares its latest complete UTC day with the average of the preceding consecutive complete days (at least three). At least 20 observations are required in each comparison period. Topics are ordered by their largest measured source-specific percentage increase; sources and time windows remain visible in “Why this rank?”. Insufficient history or low-volume topics are marked without a growth number and appear after measured topics if space remains. Usage totals come from source-reported daily counts or distinct captured posts, not ranking points. Mastodon daily counts use UTC dates and may initially cover fewer than 14 days; its last full day is shown separately from today. Bluesky counts explicit hashtags in the past 24 hours and includes imported historical replay when available. These counts describe each source's coverage, not the entire internet. Reddit counts distinct collected posts with matching title words or phrases; comments and image text are excluded. Charts show raw uses or captured posts for the named source. Dates without history are gaps rather than zeros. Hover, tap, or use arrow keys for the date and count at each point.</p><p>Legacy means dated evidence places the topic more than six calendar months ago. New &amp; Recent means the earliest available evidence is within six months. Without verified origin evidence, it is marked Estimated and may change to Legacy if older history is found. Age unknown means no dated evidence is available. First collected does not mean newly invented.</p><p>Source history uses dated trend-feed entries, story and post publication times, and daily hashtag usage. These dates show how far back the available evidence goes. They can precede our collection start, but a limited history does not establish a trend's first-ever use.</p><p>Bluesky contributes selected topics and live hashtags, Google contributes US search trends, Mastodon contributes tags observed by mastodon.social, Hacker News contributes technology stories, and Reddit contributes recurring title words and phrases from the monitored communities. Related phrases are grouped by exact normalized names and curated aliases; semantic grouping and image-meme recognition are not yet included.</p><p id="radar-coverage">The initial history builds as collection runs. Source links and age evidence are available in each topic row.</p></details>
+    </div>
+  </section>
+
   <footer><p>&copy; 2026 Tatsumo Soft <span>タツモ</span>. All rights reserved.</p></footer>
 
   <script>
     const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-    const phrases = ['AI Engineer', 'Product Builder', 'SaaS Architect', 'Startup Founder'];
-    const typedEl = document.getElementById('typed-text');
-    let phraseIndex = 0, charIndex = 0, isDeleting = false, typeSpeed = 80;
-    function typeLoop() {
-      const current = phrases[phraseIndex];
-      if (isDeleting) { typedEl.textContent = current.substring(0, charIndex - 1); charIndex--; typeSpeed = 40; }
-      else { typedEl.textContent = current.substring(0, charIndex + 1); charIndex++; typeSpeed = 80; }
-      if (!isDeleting && charIndex === current.length) { typeSpeed = 2000; isDeleting = true; }
-      else if (isDeleting && charIndex === 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; typeSpeed = 400; }
-      setTimeout(typeLoop, typeSpeed);
-    }
-    setTimeout(typeLoop, 800);
-
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target; const target = parseInt(el.dataset.target); const suffix = el.dataset.suffix || ''; const prefix = el.dataset.prefix || ''; const duration = 1500; const start = performance.now();
-          function animate(now) { const elapsed = now - start; const progress = Math.min(elapsed / duration, 1); const eased = 1 - Math.pow(1 - progress, 3); const current = Math.floor(eased * target); el.textContent = prefix + current.toLocaleString() + suffix; if (progress < 1) requestAnimationFrame(animate); else el.textContent = prefix + target.toLocaleString() + suffix; }
-          requestAnimationFrame(animate); counterObserver.unobserve(el);
-        }
-      });
-    }, { threshold: 0.5 });
-    document.querySelectorAll('.stat-number').forEach(el => counterObserver.observe(el));
 
     const form = document.getElementById('contact-form');
     form.addEventListener('submit', async (e) => {
