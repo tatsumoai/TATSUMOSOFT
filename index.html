@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Arthur Fogle - Full-Stack AI Product Engineer. Building and shipping AI-powered SaaS products. Hirewall, Screen Shield, and more.">
-  <title>Tatsumo Soft | Portfolio</title>
+  <meta name="description" content="Arthur Fogle’s portfolio of executive support, project management, software development, and creative work.">
+  <title>Arthur Fogle | Tatsumo Soft Portfolio</title>
   <link rel="stylesheet" href="tracker.css">
   <script src="tracker.js" defer></script>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -40,7 +40,6 @@
     .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
     .stagger-1 { transition-delay: 0.05s; } .stagger-2 { transition-delay: 0.1s; } .stagger-3 { transition-delay: 0.15s; } .stagger-4 { transition-delay: 0.2s; }
-    .stagger-5 { transition-delay: 0.25s; } .stagger-6 { transition-delay: 0.3s; } .stagger-7 { transition-delay: 0.35s; } .stagger-8 { transition-delay: 0.4s; }
     .hero { padding: 28px 24px 48px; position: relative; overflow: hidden; }
     .hero::before { content: ''; position: absolute; top: -200px; right: -200px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(200,15,46,0.06) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
     .hero::after { content: ''; position: absolute; bottom: -300px; left: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(200,15,46,0.04) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
@@ -52,7 +51,24 @@
     .hero h1 { font-size: clamp(32px, 4vw, 44px); font-weight: 800; line-height: 1.12; letter-spacing: -1px; margin-bottom: 18px; }
     .hero h1 span { color: var(--red); }
     .hero-bio p { font-size: 16px; color: var(--text-mid); line-height: 1.7; margin-bottom: 14px; }
-    .hero-bio p:last-child { margin-bottom: 0; }
+    .hero-bio .hero-lead { font-size: 19px; line-height: 1.45; font-weight: 600; color: var(--text-dark); }
+    .portfolio-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .portfolio-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border: 1px solid var(--card-border); border-radius: 8px; background: var(--card-bg); font-size: 14px; font-weight: 600; color: var(--text-dark); }
+    .portfolio-nav a:hover { border-color: var(--red); color: var(--red-dark); }
+    a:focus-visible, .toolkit summary:focus-visible { outline: 2px solid var(--red-dark); outline-offset: 3px; }
+    .experience { padding: 48px 24px 56px; background: var(--section-alt); border-top: 1px solid var(--card-border); }
+    .experience .section-header, .skills .section-header { margin-bottom: 24px; text-align: left; }
+    .experience .section-header h2, .skills .section-header h2 { margin-bottom: 0; font-size: clamp(28px, 3.5vw, 38px); }
+    .experience-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .experience-card { padding: 24px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; }
+    .experience-card--primary { grid-column: 1 / -1; }
+    .experience-card-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; margin-bottom: 4px; }
+    .experience-card h3 { font-size: 22px; line-height: 1.25; }
+    .experience-date { color: var(--text-mid); font-size: 14px; }
+    .experience-card .experience-role { margin-bottom: 12px; color: var(--text-dark); font-weight: 600; line-height: 1.45; }
+    .experience-card p, .experience-card li { color: var(--text-mid); font-size: 15px; line-height: 1.55; }
+    .experience-highlights { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px 32px; padding-left: 18px; }
+    .experience-highlights li::marker { color: var(--red); }
     .hero-socials { display: flex; gap: 12px; }
     .social-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--card-bg); border: 1.5px solid var(--card-border); display: flex; align-items: center; justify-content: center; transition: all 0.3s cubic-bezier(0.16,1,0.3,1); cursor: pointer; }
     .social-btn:hover { background: var(--red); border-color: var(--red); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(200,15,46,0.25); }
@@ -62,20 +78,22 @@
     .section-inner { max-width: 1100px; margin: 0 auto; }
     .section-header { text-align: center; margin-bottom: 64px; }
     .section-header h2 { font-size: clamp(32px, 4vw, 48px); font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
-    .section-header p { font-size: 18px; color: var(--text-mid); max-width: 560px; margin: 0 auto; line-height: 1.6; }
     .projects { background: var(--cream); padding-top: 36px; border-top: 1px solid var(--card-border); }
     .projects .section-header { margin-bottom: 32px; }
     .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
     .project-card { background: var(--card-bg); border: 1.5px solid var(--card-border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s cubic-bezier(0.16,1,0.3,1); }
     .project-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(42,31,31,0.1); }
+    .project-card--featured { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .project-card--featured .project-image { height: 100%; min-height: 280px; }
     .project-image { width: 100%; height: 280px; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .project-image-hirewall { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
+    .project-image-hirewall { background: #fdfdfd; }
     .project-image-ilysia { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4f46e5 100%); }
     .project-image-fatfoods { background: linear-gradient(135deg, #c2410c 0%, #ea580c 50%, #fb923c 100%); }
     .project-image-lair { background: linear-gradient(135deg, #064e3b 0%, #047857 50%, #34d399 100%); }
     .project-image-spirits { background: linear-gradient(135deg, #1c1917 0%, #44403c 50%, #78716c 100%); }
     .project-image-name { font-size: clamp(28px, 4vw, 42px); font-weight: 700; color: white; letter-spacing: -0.5px; z-index: 1; }
     .project-image-custom img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+    .project-image-hirewall img { object-fit: contain; }
     .project-card:hover .project-image-custom img { transform: scale(1.05); }
     .project-image-custom .project-image-name { display: none; }
     .project-badge { position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); color: white; font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: 100px; display: flex; align-items: center; gap: 6px; }
@@ -96,40 +114,59 @@
     .project-link-secondary svg { stroke: var(--text-light); }
     .projects-divider { grid-column: 1 / -1; text-align: center; margin-top: 30px; margin-bottom: 10px; padding-top: 48px; border-top: 1.5px solid var(--card-border); }
     .projects-divider h3 { font-size: clamp(20px, 2.5vw, 26px); font-weight: 600; color: var(--text-light); }
-    .skills { background: var(--section-alt); }
-    .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .skill-card { background: var(--card-bg); border: 1.5px solid var(--card-border); border-radius: 14px; padding: 28px; transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s; }
-    .skill-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(42,31,31,0.06); }
-    .skill-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-    .skill-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(200,15,46,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .skill-icon svg { width: 20px; height: 20px; stroke: var(--red); stroke-width: 2; fill: none; }
-    .skill-card-header h3 { font-size: 17px; font-weight: 600; }
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .skill-tag { background: var(--tag-bg); color: var(--tag-text); font-size: 13px; font-weight: 500; padding: 4px 12px; border-radius: 100px; }
-    .contact { background: var(--cream); }
-    .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-    .contact-info h2 { font-size: clamp(28px, 3.5vw, 40px); font-weight: 700; margin-bottom: 16px; }
-    .contact-info p { font-size: 17px; color: var(--text-mid); line-height: 1.6; margin-bottom: 32px; }
-    .contact-links { display: flex; flex-direction: column; gap: 16px; }
-    .contact-link-item { display: flex; align-items: center; gap: 12px; font-size: 16px; color: var(--text-mid); transition: color 0.2s, transform 0.2s; }
-    .contact-link-item:hover { color: var(--red); transform: translateX(4px); }
-    .contact-link-item svg { width: 20px; height: 20px; stroke: var(--red); stroke-width: 2; fill: none; }
-    .contact-form { background: var(--card-bg); border: 1.5px solid var(--card-border); border-radius: 16px; padding: 36px; }
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
-    .form-group input, .form-group textarea { width: 100%; padding: 12px 16px; font-family: 'DM Sans', sans-serif; font-size: 15px; border: 1.5px solid var(--card-border); border-radius: 10px; background: var(--cream); color: var(--text-dark); outline: none; transition: border-color 0.2s; }
-    .form-group input:focus, .form-group textarea:focus { border-color: var(--red); }
-    .form-group textarea { height: 120px; resize: vertical; }
-    .submit-btn { width: 100%; padding: 14px; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600; color: var(--cream); background: var(--red); border: none; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s; }
-    .submit-btn:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(200,15,46,0.25); }
-    .submit-btn svg { width: 18px; height: 18px; stroke: var(--cream); stroke-width: 2; fill: none; }
-    .form-success { display: none; text-align: center; padding: 40px 20px; color: var(--safe-green); font-weight: 600; font-size: 16px; }
+    .skills { padding-top: 48px; padding-bottom: 56px; background: var(--section-alt); }
+    .skills-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .skill-card { padding: 20px 24px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; }
+    .skill-card h3 { margin-bottom: 6px; font-size: 18px; }
+    .skill-card p, .toolkit p { color: var(--text-mid); font-size: 15px; line-height: 1.6; }
+    .toolkit { margin-top: 16px; padding: 0 24px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; }
+    .toolkit summary { display: list-item; padding: 14px 0; font-weight: 600; cursor: pointer; }
+    .toolkit summary:hover { color: var(--red-dark); }
+    .toolkit-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 28px; padding: 4px 0 20px; }
+    .toolkit-grid h3 { font-size: 15px; margin-bottom: 2px; }
+    .contact { padding-top: 48px; padding-bottom: 48px; background: var(--cream); }
+    .contact-info h2 { font-size: clamp(28px, 3.5vw, 40px); font-weight: 700; margin-bottom: 10px; }
+    .contact-info p { font-size: 17px; color: var(--text-mid); line-height: 1.6; margin-bottom: 18px; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+    .contact-link-item { display: inline-flex; align-items: center; min-height: 44px; gap: 9px; color: var(--text-mid); font-size: 16px; overflow-wrap: anywhere; }
+    .contact-link-item:hover { color: var(--red-dark); text-decoration: underline; }
+    .contact-link-item svg { width: 20px; height: 20px; flex-shrink: 0; stroke: var(--red); stroke-width: 2; fill: none; }
     footer { padding: 40px 24px; text-align: center; border-top: 1px solid var(--card-border); }
     footer p { font-size: 14px; color: var(--text-light); }
     footer span { font-family: 'Noto Sans JP', sans-serif; }
-    @media (max-width: 900px) { .contact-wrapper { grid-template-columns: 1fr; } .hero-intro { grid-template-columns: 220px minmax(0, 1fr); gap: 32px; } }
-    @media (max-width: 768px) { .projects-grid, .skills-grid { grid-template-columns: 1fr; } }
-    @media (max-width: 600px) { section { padding: 72px 20px; } .project-image { height: 200px; } .project-content { padding: 24px; } .hero { padding: 24px 20px 36px; } .hero-header { gap: 16px; margin-bottom: 24px; } .hero-logo { width: 155px; } .hero-socials { gap: 8px; } .social-btn { width: 36px; height: 36px; } .social-btn svg { width: 17px; height: 17px; } .hero-intro { display: flow-root; } .hero-photo { float: right; width: 112px; margin: 0 0 16px 20px; border-radius: 12px; box-shadow: 5px 5px 0 var(--cream-dark); } .hero-bio h1 { font-size: 32px; } .hero-bio p { font-size: 15px; line-height: 1.65; } .projects { padding-top: 32px; } }
+    @media (max-width: 900px) {
+      .hero-intro { grid-template-columns: 220px minmax(0, 1fr); gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      .projects-grid, .skills-grid, .experience-grid, .experience-highlights, .toolkit-grid, .project-card--featured { grid-template-columns: minmax(0, 1fr); }
+      .project-card--featured .project-image { height: 280px; min-height: 0; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 72px 20px; }
+      .project-image, .project-card--featured .project-image { height: 200px; }
+      .project-content { padding: 24px; }
+      .hero { padding: 24px 20px 36px; }
+      .hero-header { gap: 16px; margin-bottom: 24px; }
+      .hero-logo { width: 155px; min-width: 0; }
+      .hero-socials { gap: 8px; }
+      .social-btn { width: 36px; height: 36px; }
+      .social-btn svg { width: 17px; height: 17px; }
+      .hero-intro { display: flow-root; }
+      .hero-photo { float: right; width: 112px; margin: 0 0 16px 20px; border-radius: 12px; box-shadow: 5px 5px 0 var(--cream-dark); }
+      .hero-bio h1 { font-size: 32px; }
+      .hero-bio p { font-size: 15px; line-height: 1.65; }
+      .hero-bio .hero-lead { font-size: 17px; }
+      .portfolio-nav { clear: both; }
+      .experience, .skills, .contact { padding: 36px 20px; }
+      .experience-card, .skill-card { padding: 18px; }
+      .toolkit { padding: 0 18px; }
+      .projects { padding-top: 32px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up, .fade-up.visible { opacity: 1; transform: none; transition: none; }
+      .social-btn, .project-card, .project-image-custom img, .project-link { transition: none; }
+      .project-live-badge::before { animation: none; }
+    }
   </style>
 </head>
 <body>
@@ -147,28 +184,72 @@
         <img src="headshot.png" alt="Arthur Fogle" class="hero-photo" width="800" height="800" fetchpriority="high">
         <div class="hero-bio">
           <h1 id="intro-heading"><span>Arthur</span> Fogle</h1>
-          <p>I’m a founder, product engineer, and creative leader with a decade of experience bringing games and software to market. In 2016, I co-founded Team 21 Studio and spent nearly a decade as Chief Creative Officer and Project Manager, leading teams across design, engineering, and art. I helped secure funding and guided Ilysia, a multiplayer VR world, from its $159,347 Kickstarter campaign through release on Steam and Meta Quest.</p>
-          <p>I also worked directly with a VA clinic, veterans, and caregivers to create VR rehabilitation experiences—a collaboration covered by ABC, NBC, and Fox News. Today, I lead Tatsumo Soft, where I build AI-powered products such as Hirewall, a browser extension that helps people identify job scams and phishing. I stay involved from the first product decisions through design, engineering, and launch.</p>
+          <p class="hero-lead">I manage projects, support executives and boards, and build software and games.</p>
+          <p>I spent nearly a decade at Team 21 Studio helping run the company and bring a VR game to market. At Tatsumo Soft, I build AI products and tools that automate repetitive work.</p>
+          <nav class="portfolio-nav" aria-label="Portfolio">
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+          </nav>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="projects">
+  <section class="experience" id="experience" aria-labelledby="experience-heading">
     <div class="section-inner">
-      <div class="section-header fade-up"><h2>Featured Projects</h2></div>
+      <div class="section-header"><h2 id="experience-heading">Work Experience</h2></div>
+      <div class="experience-grid">
+        <article class="experience-card experience-card--primary">
+          <header class="experience-card-header">
+            <h3>Team 21 Studio</h3>
+            <p class="experience-date">2016&ndash;2025</p>
+          </header>
+          <p class="experience-role">Co-Founder, Chief Creative Officer, Project Manager, and Secretary of the Board</p>
+          <ul class="experience-highlights">
+            <li>Scheduled meetings, prepared board packets, recorded minutes, and kept official records for a five-member board.</li>
+            <li>Planned weekly priorities with the CEO and CTO and tracked assignments and follow-up in Jira.</li>
+            <li>Handled purchasing and prepared investor expense reports with the CEO. Wrote one-page briefs for potential investors and partners.</li>
+            <li>Helped organize event space, publisher and investor meetings, team schedules, and demos for the Game Developers Conference in 2024 and 2025.</li>
+            <li>Led hiring and onboarding and coordinated contractors across three U.S. time zones.</li>
+            <li>Partnered with a VA clinic, veterans, and caregivers on VR rehabilitation work covered by ABC, NBC, and Fox News.</li>
+          </ul>
+        </article>
+        <article class="experience-card">
+          <header class="experience-card-header">
+            <h3>ServiceCall.com</h3>
+            <p class="experience-date">March&ndash;June 2026</p>
+          </header>
+          <p class="experience-role">Project Manager and Full-Stack Developer (Contract)</p>
+          <p>I worked directly with the CTO, kept Jira and Confluence up to date, and onboarded two engineers. I built permit data workflows covering nine states and shipped a weather alert feature.</p>
+        </article>
+        <article class="experience-card">
+          <header class="experience-card-header">
+            <h3>Tatsumo Soft</h3>
+            <p class="experience-date">2025&ndash;Present</p>
+          </header>
+          <p class="experience-role">Founder and AI Product Engineer</p>
+          <p>I design, build, and launch AI products. I also make tools that connect apps and automate recurring tasks.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects" id="projects" aria-labelledby="projects-heading">
+    <div class="section-inner">
+      <div class="section-header fade-up"><h2 id="projects-heading">Featured Projects</h2></div>
       <div class="projects-grid">
 
-      <div class="project-card fade-up stagger-1">
+      <div class="project-card project-card--featured fade-up stagger-1">
         <div class="project-image project-image-hirewall project-image-custom"><img src="HIREWALL.png" alt="Hirewall"><div class="project-badge"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>Browser Extension</div><div class="project-live-badge">LIVE</div><span class="project-image-name">Hirewall</span></div>
-        <div class="project-content"><h3>Hirewall - AI Email Security</h3><p class="description">The antivirus for job scams. A Chrome/Edge browser extension with three-layer threat detection: local pattern matching, a DistilBERT classifier, and a Claude AI Judge. Covers phishing, romance scams, investment fraud, business email compromise, and recruitment fraud across Gmail, Outlook, and LinkedIn messaging. Full SaaS with Stripe billing, admin dashboard, and threat intelligence system. Built and shipped in under 3 weeks.</p><div class="project-tags"><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">JavaScript</span><span class="tag">Chrome Manifest V3</span><span class="tag">Claude API</span><span class="tag">DistilBERT</span><span class="tag">Supabase</span><span class="tag">Fly.io</span><span class="tag">Stripe</span><span class="tag">Twilio</span></div><div class="project-links"><a href="https://hirewall.app" class="project-link" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>Live Product</a><a href="https://chromewebstore.google.com/detail/hirewall/oaomdgkkllmhepgpkfmbcfpbdocokfel" class="project-link project-link-secondary" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" y1="8" x2="12" y2="8"></line><line x1="3.95" y1="6.06" x2="8.54" y2="14"></line><line x1="10.88" y1="21.94" x2="15.46" y2="14"></line></svg>Chrome Web Store</a></div></div>
+        <div class="project-content"><h3>Hirewall - AI Email Security</h3><p class="description">Hirewall is a browser extension that helps people spot job scams and phishing in Gmail, Outlook, and LinkedIn. I built the extension, the detection tools behind it, and the account and billing features. I took it from concept to the Chrome Web Store in three weeks.</p><div class="project-tags"><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">JavaScript</span><span class="tag">Chrome Manifest V3</span><span class="tag">Claude API</span><span class="tag">DistilBERT</span><span class="tag">Supabase</span><span class="tag">Fly.io</span><span class="tag">Stripe</span><span class="tag">Twilio</span></div><div class="project-links"><a href="https://hirewall.app" class="project-link" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>Live Product</a><a href="https://chromewebstore.google.com/detail/hirewall/oaomdgkkllmhepgpkfmbcfpbdocokfel" class="project-link project-link-secondary" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" y1="8" x2="12" y2="8"></line><line x1="3.95" y1="6.06" x2="8.54" y2="14"></line><line x1="10.88" y1="21.94" x2="15.46" y2="14"></line></svg>Chrome Web Store</a></div></div>
       </div>
 
       <div class="projects-divider fade-up"><h3>Previous Work &mdash; Team 21 Studio</h3></div>
 
       <div class="project-card fade-up stagger-1">
         <div class="project-image project-image-ilysia project-image-custom"><img src="ILYSIA.png" alt="Ilysia"><div class="project-badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>VR MMORPG</div><span class="project-image-name">Ilysia</span></div>
-        <div class="project-content"><h3>Ilysia - VR MMORPG</h3><p class="description">Co-founded Team 21 Studio and helped build the first cross-platform VR MMORPG, successfully funded through a $159K Kickstarter campaign. Designed and created the game world, led art direction through 2024, and worked with the art team to create in-game assets. Partnered with the VA to create VR rehabilitation environments for veterans, gaining national media coverage on ABC, NBC, and Fox News. Created all game trailers including recording gameplay, editing footage, composing music and SFX. Designed and spoke a custom elven language featured in the game and its trailer. Shipped on Steam and Meta Quest.</p><div class="project-tags"><span class="tag">C#</span><span class="tag">Unity</span><span class="tag">Photon</span><span class="tag">OpenVR</span><span class="tag">Blender</span><span class="tag">3D</span><span class="tag">VR</span><span class="tag">MMORPG</span><span class="tag">Kickstarter</span><span class="tag">Video Production</span><span class="tag">Community Management</span></div><div class="project-links"><a href="https://store.steampowered.com/app/1154120/Ilysia/" class="project-link" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>Steam Store</a><a href="https://youtu.be/-56lxil87uM?si=vlJn5HYX2SA5yBKt" class="project-link project-link-secondary" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>Trailer</a></div></div>
+        <div class="project-content"><h3>Ilysia - VR MMORPG</h3><p class="description">I helped lead Ilysia, a multiplayer VR world, from its $159,347 Kickstarter campaign through launch on Steam and Meta Quest. I designed the game world, led art direction through 2024, and worked with the art team on in-game assets. I also made the trailers, composed their music, and created the elven language heard in the game and trailer.</p><div class="project-tags"><span class="tag">C#</span><span class="tag">Unity</span><span class="tag">Photon</span><span class="tag">OpenVR</span><span class="tag">Blender</span><span class="tag">3D</span><span class="tag">VR</span><span class="tag">MMORPG</span><span class="tag">Kickstarter</span><span class="tag">Video Production</span><span class="tag">Community Management</span></div><div class="project-links"><a href="https://store.steampowered.com/app/1154120/Ilysia/" class="project-link" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>Steam Store</a><a href="https://youtu.be/-56lxil87uM?si=vlJn5HYX2SA5yBKt" class="project-link project-link-secondary" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>Trailer</a></div></div>
       </div>
 
       <div class="project-card fade-up stagger-2">
@@ -190,41 +271,53 @@
     </div>
   </section>
 
-  <section class="skills">
+  <section class="skills" id="skills" aria-labelledby="skills-heading">
     <div class="section-inner">
-      <div class="section-header fade-up"><h2>Technical Skills</h2><p>The tools and technologies behind every product</p></div>
+      <div class="section-header"><h2 id="skills-heading">Skills</h2></div>
       <div class="skills-grid">
-        <div class="skill-card fade-up stagger-1"><div class="skill-card-header"><div class="skill-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div><h3>Languages & Frameworks</h3></div><div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">JavaScript</span><span class="skill-tag">TypeScript</span><span class="skill-tag">C#</span><span class="skill-tag">React</span><span class="skill-tag">React Native</span><span class="skill-tag">HTML/CSS</span><span class="skill-tag">Vite</span></div></div>
-        <div class="skill-card fade-up stagger-2"><div class="skill-card-header"><div class="skill-icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg></div><h3>AI & Machine Learning</h3></div><div class="skill-tags"><span class="skill-tag">Claude API</span><span class="skill-tag">LLM Integration</span><span class="skill-tag">Anthropic SDK</span><span class="skill-tag">NLP</span><span class="skill-tag">DistilBERT</span><span class="skill-tag">Generative AI</span><span class="skill-tag">Prompt Engineering</span><span class="skill-tag">AI Agents</span></div></div>
-        <div class="skill-card fade-up stagger-3"><div class="skill-card-header"><div class="skill-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg></div><h3>Backend & APIs</h3></div><div class="skill-tags"><span class="skill-tag">FastAPI</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">REST</span><span class="skill-tag">OAuth</span><span class="skill-tag">JWT</span><span class="skill-tag">Stripe</span><span class="skill-tag">Twilio</span><span class="skill-tag">Swagger</span><span class="skill-tag">OpenAPI</span><span class="skill-tag">Microservices</span></div></div>
-        <div class="skill-card fade-up stagger-4"><div class="skill-card-header"><div class="skill-icon"><svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg></div><h3>Cloud & DevOps</h3></div><div class="skill-tags"><span class="skill-tag">Docker</span><span class="skill-tag">Fly.io</span><span class="skill-tag">Cloudflare Workers</span><span class="skill-tag">Git</span><span class="skill-tag">GitHub Actions</span><span class="skill-tag">CI/CD</span><span class="skill-tag">DNS</span><span class="skill-tag">Supabase</span></div></div>
-        <div class="skill-card fade-up stagger-5"><div class="skill-card-header"><div class="skill-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div><h3>VR & Game Development</h3></div><div class="skill-tags"><span class="skill-tag">Unity</span><span class="skill-tag">Unreal Engine</span><span class="skill-tag">OpenVR</span><span class="skill-tag">OpenGL</span><span class="skill-tag">Photon</span><span class="skill-tag">Blender</span><span class="skill-tag">Oculus Rift</span><span class="skill-tag">3D</span></div></div>
-        <div class="skill-card fade-up stagger-6"><div class="skill-card-header"><div class="skill-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div><h3>Security</h3></div><div class="skill-tags"><span class="skill-tag">Application Security</span><span class="skill-tag">Cyber Security</span><span class="skill-tag">Information Security</span><span class="skill-tag">Encryption</span><span class="skill-tag">SSO</span></div></div>
-        <div class="skill-card fade-up stagger-7"><div class="skill-card-header"><div class="skill-icon"><svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg></div><h3>Design & Media</h3></div><div class="skill-tags"><span class="skill-tag">Adobe Creative Suite</span><span class="skill-tag">Illustrator</span><span class="skill-tag">Photoshop</span><span class="skill-tag">Figma</span><span class="skill-tag">Blender</span><span class="skill-tag">UI/UX</span><span class="skill-tag">Graphic Design</span><span class="skill-tag">Content Creation</span></div></div>
-        <div class="skill-card fade-up stagger-8"><div class="skill-card-header"><div class="skill-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg></div><h3>Browser Extensions & SaaS</h3></div><div class="skill-tags"><span class="skill-tag">Chrome Extensions</span><span class="skill-tag">Manifest V3</span><span class="skill-tag">Stripe Billing</span><span class="skill-tag">Google Analytics</span><span class="skill-tag">Email Marketing</span><span class="skill-tag">Admin Dashboards</span></div></div>
+        <article class="skill-card">
+          <h3>Executive and Board Support</h3>
+          <p>Scheduling, board materials and minutes, expense reporting, purchasing, event planning, and investor and partner communications.</p>
+        </article>
+        <article class="skill-card">
+          <h3>Project and Team Management</h3>
+          <p>Project planning, task tracking, Excel reporting, hiring, onboarding, and contractor coordination. I use Jira, Confluence, Microsoft 365, and Google Workspace.</p>
+        </article>
+        <article class="skill-card">
+          <h3>Software and Automation</h3>
+          <p>AI products, browser extensions, data workflows, and release testing. I work with Python, TypeScript, SQL, ChatGPT, and Claude.</p>
+        </article>
+        <article class="skill-card">
+          <h3>Art and Media</h3>
+          <p>Art direction, 3D environments, game design, and video and audio production. I work with Blender, Unity, Unreal Engine, Figma, and Adobe tools.</p>
+        </article>
       </div>
+      <details class="toolkit">
+        <summary>Technical toolkit</summary>
+        <div class="toolkit-grid">
+          <div><h3>Languages and Frameworks</h3><p>Python, JavaScript, TypeScript, C#, React, React Native, HTML, CSS, and Vite</p></div>
+          <div><h3>AI and Machine Learning</h3><p>Claude API, Anthropic SDK, LLM integration, NLP, DistilBERT, prompt engineering, and AI agents</p></div>
+          <div><h3>Backend and APIs</h3><p>FastAPI, PostgreSQL, REST, OAuth, JWT, Stripe, Twilio, Swagger, OpenAPI, and microservices</p></div>
+          <div><h3>Cloud and DevOps</h3><p>Docker, Fly.io, Cloudflare Workers, Git, GitHub Actions, CI/CD, DNS, and Supabase</p></div>
+          <div><h3>VR and Game Development</h3><p>Unity, Unreal Engine, OpenVR, OpenGL, Photon, Blender, and Oculus Rift</p></div>
+          <div><h3>Application Security</h3><p>Encryption, single sign-on, and security for applications and data</p></div>
+          <div><h3>Design and Media</h3><p>Adobe Creative Suite, Illustrator, Photoshop, Figma, Blender, UI and UX design, and content production</p></div>
+          <div><h3>Browser Extensions and SaaS</h3><p>Chrome extensions, Manifest V3, Stripe billing, Google Analytics, email marketing, and admin dashboards</p></div>
+        </div>
+      </details>
     </div>
   </section>
 
-  <section class="contact">
+  <section class="contact" id="contact" aria-labelledby="contact-heading">
     <div class="section-inner">
-      <div class="contact-wrapper">
-        <div class="contact-info fade-up">
-          <h2>Let's Work Together</h2>
-          <p>Have a project in mind? I ship fast and I ship well. Whether you need a full SaaS product, a browser extension, or AI integration, let's talk.</p>
-          <div class="contact-links">
-            <a href="mailto:danny@tatsumosoft.com" class="contact-link-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>danny@tatsumosoft.com</a>
-            <a href="https://linkedin.com/in/arthurfogle" class="contact-link-item" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>LinkedIn</a>
-            <a href="https://github.com/tatsumoai" class="contact-link-item" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>GitHub</a>
-          </div>
+      <div class="contact-info">
+        <h2 id="contact-heading">Let's Work Together</h2>
+        <p>I’m open to roles and projects in executive support, project management, software development, and creative production.</p>
+        <div class="contact-links">
+          <a href="mailto:danny@tatsumosoft.com" class="contact-link-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>danny@tatsumosoft.com</a>
+          <a href="https://linkedin.com/in/arthurfogle" class="contact-link-item" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>LinkedIn</a>
+          <a href="https://github.com/tatsumoai" class="contact-link-item" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>GitHub</a>
         </div>
-        <form class="contact-form fade-up" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-          <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" placeholder="Your name" required></div>
-          <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="your@email.com" required></div>
-          <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" placeholder="Tell me about your project..." required></textarea></div>
-          <button type="submit" class="submit-btn"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>Send Message</button>
-          <div class="form-success" id="form-success">Message sent! I'll get back to you soon.</div>
-        </form>
       </div>
     </div>
   </section>
@@ -252,12 +345,6 @@
   <script>
     const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-    const form = document.getElementById('contact-form');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault(); const formData = new FormData(form);
-      try { const resp = await fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } }); if (resp.ok) { form.reset(); document.getElementById('form-success').style.display = 'block'; setTimeout(() => { document.getElementById('form-success').style.display = 'none'; }, 5000); } } catch (err) { console.error('Form error:', err); }
-    });
   </script>
 </body>
 </html>
